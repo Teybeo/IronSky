@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Projet C" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Projet C" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Projet C" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="include" />
+			<Add directory="$(#sdl.include)" />
+			<Add directory="$(#sdl_image.include)" />
+			<Add directory="$(#sdl_gfx.include)" />
+		</Compiler>
+		<Linker>
+			<Add library="SDL_gfx" />
+			<Add library="SDL" />
+			<Add library="SDL_image" />
+			<Add directory="$(#sdl.lib)" />
+			<Add directory="$(#sdl_image.lib)" />
+			<Add directory="$(#sdl_gfx.lib)" />
+		</Linker>
+		<Unit filename="include/champForce.h" />
+		<Unit filename="include/fonctionCSDL.h" />
+		<Unit filename="include/game.h" />
+		<Unit filename="include/junk.h" />
+		<Unit filename="include/level.h" />
+		<Unit filename="include/point.h" />
+		<Unit filename="include/spaceship.h" />
+		<Unit filename="include/structure.h" />
+		<Unit filename="include/vecteur.h" />
+		<Unit filename="source/app.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/attractor.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/champForce.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/fonctionCSDL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/game.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/junk.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/level.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/spaceship.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/vecteur.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
