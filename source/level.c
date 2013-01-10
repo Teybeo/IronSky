@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Level createLevel(int nbJunk, Point* tabPosJunk, Point depart) {
+Level createLevel(int nbJunks, Point* tabPosJunk, Point depart) {
 
     Level a = {};
-    a.nbJunk = nbJunk;
+    a.nbJunks = nbJunks;
     a.tabPosJunk = tabPosJunk;
     a.depart = depart;
 
@@ -20,12 +20,12 @@ Level generateLevel(int w, int h)
     Level lev = {};
 
     // Création d'un niveau aléatoirement
-    lev.nbJunk = rand() % 2000;
+    lev.nbJunks = rand() % 2000;
 
     //creer un nouveau tableau contenant exclusivement les positions des dechets
-    lev.tabPosJunk = malloc(lev.nbJunk * sizeof(Point));
+    lev.tabPosJunk = malloc(lev.nbJunks * sizeof(Point));
     int i;
-    for(i = 0; i < lev.nbJunk; i++)
+    for(i = 0; i < lev.nbJunks; i++)
     {
         lev.tabPosJunk[i].x = rand() % (w - 55);
         lev.tabPosJunk[i].y = rand() % (h - 55);
@@ -46,9 +46,9 @@ void saveLevel(Level a) {
         return;
     }
 
-    fwrite(&a.nbJunk, sizeof(int), 1, fichier);
+    fwrite(&a.nbJunks, sizeof(int), 1, fichier);
 
-    fwrite(a.tabPosJunk, sizeof(Point), a.nbJunk, fichier);
+    fwrite(a.tabPosJunk, sizeof(Point), a.nbJunks, fichier);
 
     fwrite(&a.depart, sizeof(Point), 1, fichier);
 
@@ -56,20 +56,22 @@ void saveLevel(Level a) {
 
 }
 
-void buildLevel(Level lev, Junk** tabJunk, SpaceShip* spaceship, SDL_Surface* spriteEcrou, SDL_Surface* spriteSpaceship) {
+void loadLevel(Level lev, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite)
+{
 
-    *tabJunk = malloc(lev.nbJunk * sizeof(Junk));
+    *nbJunks = lev.nbJunks;
+    *tabJunk = malloc(lev.nbJunks * sizeof(Junk));
     int i;
-    for( i = 0; i < lev.nbJunk; i++)
+    for( i = 0; i < lev.nbJunks; i++)
     {
-        (*tabJunk)[i] = createJunk(lev.tabPosJunk[i].x, lev.tabPosJunk[i].y, spriteEcrou);
+        (*tabJunk)[i] = createJunk(lev.tabPosJunk[i].x, lev.tabPosJunk[i].y, junkSprite);
     }
 
-    *spaceship = createSpaceShip(lev.depart.x, lev.depart.y, spriteSpaceship);
+    *spaceship = createSpaceShip(lev.depart.x, lev.depart.y, spaceshipSprite);
 
 }
 
-Level chargeLevel(char* chemin) {
+Level openFileLevel(char* chemin) {
 
     Level a = {};
 
@@ -80,11 +82,11 @@ Level chargeLevel(char* chemin) {
         return a;
     }
 
-    fread(&a.nbJunk, sizeof(int), 1, fichier);
+    fread(&a.nbJunks, sizeof(int), 1, fichier);
 
-    a.tabPosJunk = malloc(a.nbJunk * sizeof(Point));
+    a.tabPosJunk = malloc(a.nbJunks * sizeof(Point));
 
-    fread(a.tabPosJunk, sizeof(Point), a.nbJunk, fichier);
+    fread(a.tabPosJunk, sizeof(Point), a.nbJunks, fichier);
 
     fread(&a.depart, sizeof(Point), 1, fichier);
 

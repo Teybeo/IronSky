@@ -19,8 +19,8 @@ int main() {
 
     loadSprites(&tabSprite);
 
-    gameStart("test.niveau", tabSprite);
-    gameStart("test.niveau", tabSprite);
+    gameLaunch("test.niveau", tabSprite);
+    gameLaunch("test.niveau", tabSprite);
 
     return EXIT_SUCCESS;
 

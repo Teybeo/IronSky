@@ -1,7 +1,7 @@
 #include "junk.h"
 
 #include "SDL.h"
-#include "vecteur.h"
+#include "vector.h"
 #include "SDL_gfxPrimitives.h"
 
 Junk createJunk(int x, int y, SDL_Surface* sprite) {
@@ -17,7 +17,7 @@ Junk createJunk(int x, int y, SDL_Surface* sprite) {
 
 }
 
-void afficherDechet(Junk a, SDL_Surface* screen) {
+void drawJunk(Junk a, SDL_Surface* screen) {
 
     SDL_Rect pos;
     pos.x = a.pos.x - a.sprite->w/2;
@@ -27,7 +27,7 @@ void afficherDechet(Junk a, SDL_Surface* screen) {
 
     SDL_BlitSurface(a.sprite, 0, screen, &pos);
 
-    circleColor(screen, a.pos.x, a.pos.y, a.rayon, 0xffff00ff);
+//    circleColor(screen, a.pos.x, a.pos.y, a.rayon, 0xffff00ff);
 }
 
 bool takeJunk(Junk* junk, Point pos, int rayon)

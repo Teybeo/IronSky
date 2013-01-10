@@ -15,7 +15,7 @@ typedef struct Junk
 } Junk;
 
 Junk createJunk(int x, int y, SDL_Surface* sprite);
-void afficherDechet(Junk a, SDL_Surface* screen);
+void drawJunk(Junk a, SDL_Surface* screen);
 bool takeJunk(Junk* junk, Point pos, int rayon);
 
 #endif // _JUNK

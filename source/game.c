@@ -3,7 +3,7 @@
 #include "level.h"
 #include "fonctionCSDL.h"
 #include "point.h"
-#include "champForce.h"
+#include "forcefield.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_rotozoom.h"
@@ -12,44 +12,27 @@
 #include <stdbool.h>
 #include <time.h>
 
+typedef struct {
 
-bool gameInit(SDL_Surface** ecran);
+    SDL_Surface* screen;
+    SDL_Surface* background;
+    SpaceShip player;
+    Junk* tabJunk;
+    ForceField* tabField;
+    int nbFields;
+    int nbJunks;
+    int comptJunk;
+
+} Game;
+
+Game gameInit(char* cheminNiveau, SDL_Surface** tabSprite);
+int gameRun(Game g);
 void gameEvent(bool* done);
-void gameLogic(SpaceShip* spaceship, Junk* tabJunk, int nbJunk, int* comptJunk, bool* done, ChampForce* champ, int nbChamp, int w, int h);
-void gameDraw(SpaceShip spaceship, Junk* tabJunk, int nbJunk, ChampForce* tabChamp, int nbChamp, SDL_Surface* screen, SDL_Surface* background);
+void gameLogic(bool* done, Game* g);
+void gameDraw(Game g);
 
-SDL_Surface* screen;
-
-int gameStart (char* cheminNiveau, SDL_Surface** tabSprite)
+int gameRun(Game g)
 {
-    screen = SDL_GetVideoSurface();
-    SDL_Surface* background = tabSprite[3];
-    SpaceShip spaceship;
-    Level lev = {};
-    Junk *tabJunk = NULL;
-    int nbChamp = 5;
-    ChampForce* tabChamp = malloc(sizeof(ChampForce) * nbChamp);
-    int i;
-    int tabIntensite[2] = {-1, 1};
-    for (i = 0; i < nbChamp; i++)
-        tabChamp [i] = createChampForce(rand() % (screen->w - 55), rand() % (screen->h - 55), 100, tabIntensite[rand() % 2], tabSprite[4], tabSprite[5]);
-    int comptJunk = 0;
-
-    if (gameInit(&screen) == false)
-        return EXIT_FAILURE;
-
-    SDL_Surface* spriteSpaceship = tabSprite[0];
-    SDL_Surface* spriteEcrou = tabSprite[1];
-
-//    lev = generateLevel(screen->w, screen->h);
-//    saveLevel(lev);
-
-    lev = chargeLevel(cheminNiveau);
-
-    // Chargement d'un niveau
-    buildLevel(lev, &tabJunk, &spaceship, spriteEcrou, spriteSpaceship);
-
-    addForces(&spaceship, (Vecteur){-0.001, 0});
 
     // program main loop
     bool done = false;
@@ -59,15 +42,13 @@ int gameStart (char* cheminNiveau, SDL_Surface** tabSprite)
         debut = SDL_GetTicks();
 
         gameEvent(&done);
-        gameLogic(&spaceship, tabJunk, lev.nbJunk, &comptJunk, &done, tabChamp, nbChamp, screen->w, screen->h);
-        gameDraw(spaceship, tabJunk, lev.nbJunk, tabChamp, nbChamp, screen, background);
+        gameLogic(&done, &g);
+        gameDraw(g);
 
         float duree = (SDL_GetTicks() - debut);
         char chaine[30] = "";
         sprintf(chaine, "Duree: %.0f ms", duree);
         SDL_WM_SetCaption(chaine, NULL);
-//        if (duree < 16)
-//            SDL_Delay(10 - duree);
 
     } // end main loop
 
@@ -77,128 +58,163 @@ int gameStart (char* cheminNiveau, SDL_Surface** tabSprite)
     return 0;
 }
 
-void gameLogic(SpaceShip* spaceship, Junk* tabJunk, int nbJunk, int* comptJunk, bool* done, ChampForce* tabChamp, int nbChamp, int w, int h) {
-
-    // Rotation du sprite
-    turnSpaceShip(spaceship);
+void gameLogic(bool* done, Game* g)
+{
 
     int i;
-    for (i = 0; i < nbJunk; i++)
-        if (takeJunk( &tabJunk[i] , spaceship->pos, spaceship->rayon))
-                (*comptJunk)++;
+    for (i = 0; i < g->nbJunks; i++)
+        if (takeJunk( &g->tabJunk[i] , g->player.pos, g->player.rayon))
+                g->comptJunk++;
 
-    //printf("%d %d\n",spaceship.pos.x,spaceship.pos.y);
-    if (spaceship->pos.x - spaceship->rayon < 0)
+    if (g->player.pos.x - g->player.rayon < 0)
     {
-        spaceship->vitesse.x *= -0.9;
-        spaceship->pos.x = spaceship->rayon;
+        g->player.vitesse.x *= -0.9;
+        g->player.pos.x = g->player.rayon;
     }
-    if (spaceship->pos.x + spaceship->rayon > w)
+    if (g->player.pos.x + g->player.rayon > g->screen->w)
     {
-        spaceship->vitesse.x *= -0.9;
-        spaceship->pos.x = w - spaceship->rayon;
+        g->player.vitesse.x *= -0.9;
+        g->player.pos.x = g->screen->w - g->player.rayon;
     }
-    if (spaceship->pos.y + spaceship->rayon > h)
+    if (g->player.pos.y + g->player.rayon > g->screen->h)
     {
-        spaceship->vitesse.y *= -0.9;
-        spaceship->pos.y = h - spaceship->rayon;
+        g->player.vitesse.y *= -0.9;
+        g->player.pos.y = g->screen->h - g->player.rayon;
     }
-    if (spaceship->pos.y - spaceship->rayon < 0)
+    if (g->player.pos.y - g->player.rayon < 0)
     {
-        spaceship->vitesse.y *= -0.9;
-        spaceship->pos.y = spaceship->rayon;
+        g->player.vitesse.y *= -0.9;
+        g->player.pos.y = g->player.rayon;
     }
 
-    for (i = 0; i < nbChamp; i++)
+    for (i = 0; i < g->nbFields; i++)
     {
 
-        if (distanceVect( createVect(tabChamp[i].pos, spaceship->pos)) < tabChamp[i].rayon)
+        if (distanceVect( createVect(g->tabField[i].pos, g->player.pos)) < g->tabField[i].rayon)
         {
-            Vecteur normale = createVect(tabChamp[i].pos,  spaceship->pos);
+            Vector normale = createVect(g->tabField[i].pos,  g->player.pos);
             float longueur = distanceVect(normale);
             divisVecScal(&normale, longueur);
 
-            Vecteur force = normale;
-            multVecScal(&force, tabChamp[i].intensite* 0.01/longueur);
+            Vector force = normale;
+            multVecScal(&force, g->tabField[i].intensity* 0.01/longueur);
 
-            addVecteurs(&spaceship->totalForces, force);
-
-    //        lineColor(screen, spaceship->pos.x, spaceship->pos.y, tabChamp[i].pos.x, tabChamp[i].pos.y, 0xffffffff);
-            short x, y;
-            x = force.x * 10000;
-            y = force.y * 10000;
-
-            lineColor(screen, spaceship->pos.x, spaceship->pos.y,spaceship->pos.x + x, spaceship->pos.y + y, 0xffffffff);
+            addVectors(&g->player.totalForces, force);
 
         }
 
     }
-    appliqueForces(spaceship);
-    nextpos(spaceship);
+
+    applyForces(&g->player);
+    nextpos(&g->player);
+    turnSpaceShip(&g->player);
 
     //printf("nbJunk %d\n", *comptJunk);
 
-    if (*comptJunk == nbJunk)
+    if (g->comptJunk == g->nbJunks)
         *done = true;
 }
 
-void gameDraw(SpaceShip spaceship, Junk* tabJunk, int nbJunk, ChampForce* tabChamp, int nbChamp, SDL_Surface* screen, SDL_Surface* background) {
+void gameDraw(Game g) {
 
-    // clear screen
-
-    // draw bitmap
-    SDL_BlitSurface(background,NULL,screen,NULL);
     int i;
-    for(i=0 ; i < nbJunk ; i++)
+
+    // draw background
+    SDL_BlitSurface(g.background, NULL, g.screen, NULL);
+
+    // draw all junks
+    for (i=0 ; i < g.nbJunks ; i++)
     {
-        if (tabJunk[i].take == 0)
-            afficherDechet(tabJunk[i], screen);
+        if (g.tabJunk[i].take == 0)
+            drawJunk(g.tabJunk[i], g.screen);
 
     }
 
-    for (i = 0; i < nbChamp; i++)
+    // draw all fields
+    for (i = 0; i < g.nbFields; i++)
     {
-        affichChampForce(tabChamp[i], screen);
+        drawForceField(g.tabField[i], g.screen);
     }
 
-    afficheSpaceship(spaceship, screen);
+    // draw spaceship
+    drawSpaceship(g.player, g.screen);
 
     // finally, update the screen :)
-    SDL_Flip(screen);
-    SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+    SDL_Flip(g.screen);
 
 }
 
 void gameEvent(bool* done) {
-    // message processing loop
+
     SDL_Event event;
+
+    // message processing loop
     while (SDL_PollEvent(&event))
     {
         // check for messages
         switch (event.type)
         {
             // exit if the window is closed
-        case SDL_QUIT:
-            *done = true;
+            case SDL_QUIT:
+                *done = true;
             break;
 
             // check for keypresses
-        case SDL_KEYDOWN:
-            {
+            case SDL_KEYDOWN:
+
                 // exit if ESCAPE is pressed
                 if (event.key.keysym.sym == SDLK_ESCAPE)
                     *done = true;
-                break;
-            }
+            break;
+
         } // end switch
+
     } // end of message processing
 
 }
 
-bool gameInit(SDL_Surface** screen) {
+Game gameInit(char* cheminNiveau, SDL_Surface** tabSprite)
+{
+    int i;
+    int tabIntensite[2] = {-1, 1};
 
+    Game g = {};
 
+    g.screen = SDL_GetVideoSurface();
+    g.background = tabSprite[3];
+    g.nbFields = 5;
+    g.tabField = malloc(sizeof(ForceField) * g.nbFields);
 
-    return true;
+    for (i = 0; i < g.nbFields; i++)
+        g.tabField [i] = createForceField(rand() % (g.screen->w - 55), rand() % (g.screen->h - 55), 100, tabIntensite[rand() % 2], tabSprite[4], tabSprite[5]);
+
+    g.tabJunk = NULL;
+    g.comptJunk = 0;
+
+    Level lev = {};
+
+//    Level lev = generateLevel(screen->w, screen->h);
+//    saveLevel(lev);
+
+    lev = openFileLevel(cheminNiveau);
+
+    // Chargement d'un niveau
+    loadLevel(lev, &g.tabJunk, &g.nbJunks, &g.player, tabSprite[1], tabSprite[0]);
+
+    addForces(&g.player, (Vector){-0.001, 0});
+
+    return g;
 
 }
+
+void gameLaunch(char* cheminNiveau, SDL_Surface** tabSprite) {
+
+    Game g = gameInit(cheminNiveau, tabSprite);
+
+    gameRun(g);
+
+}
+
+
+
+

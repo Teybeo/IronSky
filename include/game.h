@@ -1,8 +1,7 @@
-#ifndef H_GAME
-#define H_GAME
+#ifndef _GAME
+#define _GAME
 
-int gameStart ();
+int gameLaunch();
 
-
-#endif // H_GAME
+#endif // _GAME
 

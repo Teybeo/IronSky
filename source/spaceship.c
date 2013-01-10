@@ -7,7 +7,7 @@
 SpaceShip createSpaceShip(int x0,int y0, SDL_Surface* sprite)
 {
     SpaceShip spaceshipA;
-    Vecteur vecteurNull;
+    Vector vecteurNull;
     vecteurNull.x = 0;
     vecteurNull.y = 0;
     spaceshipA.rayon = 40 ; // 55
@@ -21,12 +21,12 @@ SpaceShip createSpaceShip(int x0,int y0, SDL_Surface* sprite)
     return spaceshipA;
 }
 
-void addForces(SpaceShip* spaceshipA, Vecteur force)
+void addForces(SpaceShip* spaceshipA, Vector force)
 {
-    addVecteurs(&spaceshipA->totalForces, force);
+    addVectors(&spaceshipA->totalForces, force);
 }
 
-void appliqueForces(SpaceShip* spaceshipA)
+void applyForces(SpaceShip* spaceshipA)
 {
     spaceshipA->vitesse.x += spaceshipA->totalForces.x * 100;
     spaceshipA->vitesse.y += spaceshipA->totalForces.y * 100;
@@ -55,7 +55,7 @@ void turnSpaceShip(SpaceShip* a) {
 
 }
 
-void afficheSpaceship(SpaceShip a, SDL_Surface* screen) {
+void drawSpaceship(SpaceShip a, SDL_Surface* screen) {
 
     SDL_Rect rect;
     rect.x = a.pos.x - a.sprite->w/2;
@@ -65,12 +65,11 @@ void afficheSpaceship(SpaceShip a, SDL_Surface* screen) {
 
     SDL_BlitSurface(a.sprite, 0, screen, &rect);
 
-    circleColor(screen, a.pos.x, a.pos.y, a.rayon, 0xff0000ff);
-    Sint16 vx = (Sint16)(a.vitesse.x*1000);
-    Sint16 vy = (Sint16)(a.vitesse.y*1000);
+//    circleColor(screen, a.pos.x, a.pos.y, a.rayon, 0xff0000ff);
+//    Sint16 vx = (Sint16)(a.vitesse.x*1000);
+//    Sint16 vy = (Sint16)(a.vitesse.y*1000);
 
-
-    lineColor(screen, (Sint16)a.pos.x, (Sint16)a.pos.y, (Sint16)a.pos.x+(vx), (Sint16)a.pos.y+(vy), 0xff0000ff);
+//    lineColor(screen, (Sint16)a.pos.x, (Sint16)a.pos.y, (Sint16)a.pos.x+(vx), (Sint16)a.pos.y+(vy), 0xff0000ff);
 //    rectangleColor(screen, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h, 0xff0000ff);
 
 }
