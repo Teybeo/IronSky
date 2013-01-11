@@ -9,7 +9,7 @@ Junk createJunk(int x, int y, SDL_Surface* sprite) {
     Junk a = {};
     a.pos.x = x + sprite->w/2.;
     a.pos.y = y + sprite->h/2.;
-    a.take = 0;
+    a.taken = false;
     a.rayon = 13;
     a.sprite = sprite;
 
@@ -30,11 +30,11 @@ void drawJunk(Junk a, SDL_Surface* screen) {
 //    circleColor(screen, a.pos.x, a.pos.y, a.rayon, 0xffff00ff);
 }
 
-bool takeJunk(Junk* junk, Point pos, int rayon)
+bool canTakeJunk(Junk* junk, Point pos, int rayon)
 {
-    if (distanceVect( createVect(junk->pos, pos)) < (rayon + junk->rayon) && junk->take == 0)
+    if (junk->taken == false && distanceVect( createVect(junk->pos, pos)) < (rayon + junk->rayon) )
     {
-        junk->take = 1;
+        junk->taken = true;
         return true;
     }
 

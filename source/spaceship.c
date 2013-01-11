@@ -4,7 +4,7 @@
 #include "SDL_gfxPrimitives.h"
 #include <math.h>
 
-SpaceShip createSpaceShip(int x0,int y0, SDL_Surface* sprite)
+SpaceShip createSpaceShip(int x0, int y0, SDL_Surface* sprite)
 {
     SpaceShip spaceshipA;
     Vector vecteurNull;
@@ -21,11 +21,6 @@ SpaceShip createSpaceShip(int x0,int y0, SDL_Surface* sprite)
     return spaceshipA;
 }
 
-void addForces(SpaceShip* spaceshipA, Vector force)
-{
-    addVectors(&spaceshipA->totalForces, force);
-}
-
 void applyForces(SpaceShip* spaceshipA)
 {
     spaceshipA->vitesse.x += spaceshipA->totalForces.x * 100;
@@ -40,6 +35,30 @@ void nextpos(SpaceShip* spaceshipA)
 {
     spaceshipA->pos.x += spaceshipA->vitesse.x * 100;
     spaceshipA->pos.y += spaceshipA->vitesse.y * 100;
+}
+
+void resolveWallCollision(SpaceShip* a, int w, int h)
+{
+    if (a->pos.x - a->rayon < 0) // Gauche
+    {
+        a->vitesse.x *= -0.9;
+        a->pos.x = a->rayon;
+    }
+    else if (a->pos.x + a->rayon > w) // Droite
+    {
+        a->vitesse.x *= -0.9;
+        a->pos.x = w - a->rayon;
+    }
+    if (a->pos.y + a->rayon > h) // Bas
+    {
+        a->vitesse.y *= -0.9;
+        a->pos.y = h - a->rayon;
+    }
+    else if (a->pos.y - a->rayon < 0) // Haut
+    {
+        a->vitesse.y *= -0.9;
+        a->pos.y = a->rayon;
+    }
 }
 
 void turnSpaceShip(SpaceShip* a) {
@@ -72,6 +91,11 @@ void drawSpaceship(SpaceShip a, SDL_Surface* screen) {
 //    lineColor(screen, (Sint16)a.pos.x, (Sint16)a.pos.y, (Sint16)a.pos.x+(vx), (Sint16)a.pos.y+(vy), 0xff0000ff);
 //    rectangleColor(screen, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h, 0xff0000ff);
 
+}
+
+void addForce(SpaceShip* spaceshipA, Vector force)
+{
+    addVectors(&spaceshipA->totalForces, force);
 }
 
 void debugSpaceship(SpaceShip a) {

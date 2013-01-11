@@ -8,14 +8,15 @@
 
 typedef struct Junk
 {
-    SDL_Surface *sprite;//images utilisé pour le dechet
-    Point pos; //position du dechet
-    int take;
-    int rayon;
+    SDL_Surface *sprite; // image utilisée pour le dechet
+    Point pos;           // position du dechet
+    bool taken;          // indique si le dechet a été ramassé
+    int rayon;           // rayon du cercle de hitbox
+
 } Junk;
 
 Junk createJunk(int x, int y, SDL_Surface* sprite);
 void drawJunk(Junk a, SDL_Surface* screen);
-bool takeJunk(Junk* junk, Point pos, int rayon);
+bool canTakeJunk(Junk* junk, Point pos, int rayon);
 
 #endif // _JUNK

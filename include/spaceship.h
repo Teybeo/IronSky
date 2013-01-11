@@ -16,8 +16,9 @@ struct SpaceShip
 };
 
 SpaceShip createSpaceShip(int x0,int y0, SDL_Surface* sprite);
+void resolveWallCollision(SpaceShip* a, int w, int h);
 void applyForces(SpaceShip* spaceshipA);
-void addForces(SpaceShip* spaceshipA, Vector force);
+void addForce(SpaceShip* spaceshipA, Vector force);
 void nextpos(SpaceShip* spaceshipA);
 void turnSpaceShip(SpaceShip* a);
 void drawSpaceship(SpaceShip a, SDL_Surface* screen);

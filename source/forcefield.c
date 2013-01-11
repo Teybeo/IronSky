@@ -1,8 +1,8 @@
 #include "forcefield.h"
 
-ForceField createForceField(int x, int y, int rayon, int intensity, SDL_Surface* spriteAtt, SDL_Surface* spriteRep)
+Forcefield createForcefield(int x, int y, int rayon, int intensity, SDL_Surface* spriteAtt, SDL_Surface* spriteRep)
 {
-    ForceField a = {};
+    Forcefield a = {};
     a.pos = (Point){x, y};
     a.rayon = rayon;
     a.intensity = intensity;
@@ -15,7 +15,24 @@ ForceField createForceField(int x, int y, int rayon, int intensity, SDL_Surface*
 
 }
 
-void drawForceField(ForceField a, SDL_Surface* screen)
+bool isInForcefieldRange(Forcefield field, Point p)
+{
+    return distanceVect(createVect(field.pos, p)) < field.rayon;
+}
+
+Vector calculateForce(Forcefield field, Point pos)
+{
+    Vector normale = createVect(field.pos,  pos);
+    float longueur = distanceVect(normale);
+    divisVecScal(&normale, longueur);
+
+    Vector force = normale;
+    multVecScal(&force, field.intensity * 0.01/longueur);
+
+    return force;
+}
+
+void drawForcefield(Forcefield a, SDL_Surface* screen)
 {
     SDL_Rect rect;
     rect.x = a.pos.x - a.sprite->w/4;

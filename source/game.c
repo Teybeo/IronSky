@@ -18,7 +18,7 @@ typedef struct {
     SDL_Surface* background;
     SpaceShip player;
     Junk* tabJunk;
-    ForceField* tabField;
+    Forcefield* tabField;
     int nbFields;
     int nbJunks;
     int comptJunk;
@@ -62,52 +62,26 @@ void gameLogic(bool* done, Game* g)
 {
 
     int i;
-    for (i = 0; i < g->nbJunks; i++)
-        if (takeJunk( &g->tabJunk[i] , g->player.pos, g->player.rayon))
-                g->comptJunk++;
 
-    if (g->player.pos.x - g->player.rayon < 0)
-    {
-        g->player.vitesse.x *= -0.9;
-        g->player.pos.x = g->player.rayon;
-    }
-    if (g->player.pos.x + g->player.rayon > g->screen->w)
-    {
-        g->player.vitesse.x *= -0.9;
-        g->player.pos.x = g->screen->w - g->player.rayon;
-    }
-    if (g->player.pos.y + g->player.rayon > g->screen->h)
-    {
-        g->player.vitesse.y *= -0.9;
-        g->player.pos.y = g->screen->h - g->player.rayon;
-    }
-    if (g->player.pos.y - g->player.rayon < 0)
-    {
-        g->player.vitesse.y *= -0.9;
-        g->player.pos.y = g->player.rayon;
-    }
+
+    resolveWallCollision(&g->player, g->screen->w, g->screen->h);
 
     for (i = 0; i < g->nbFields; i++)
     {
-
-        if (distanceVect( createVect(g->tabField[i].pos, g->player.pos)) < g->tabField[i].rayon)
+        if (isInForcefieldRange(g->tabField[i], g->player.pos) == true)
         {
-            Vector normale = createVect(g->tabField[i].pos,  g->player.pos);
-            float longueur = distanceVect(normale);
-            divisVecScal(&normale, longueur);
-
-            Vector force = normale;
-            multVecScal(&force, g->tabField[i].intensity* 0.01/longueur);
-
-            addVectors(&g->player.totalForces, force);
-
+            Vector force = calculateForce(g->tabField[i], g->player.pos);
+            addForce(&g->player, force);
         }
-
     }
 
     applyForces(&g->player);
     nextpos(&g->player);
     turnSpaceShip(&g->player);
+
+    for (i = 0; i < g->nbJunks; i++)
+        if (canTakeJunk( &g->tabJunk[i] , g->player.pos, g->player.rayon))
+                g->comptJunk++;
 
     //printf("nbJunk %d\n", *comptJunk);
 
@@ -125,7 +99,7 @@ void gameDraw(Game g) {
     // draw all junks
     for (i=0 ; i < g.nbJunks ; i++)
     {
-        if (g.tabJunk[i].take == 0)
+        if (g.tabJunk[i].taken == false)
             drawJunk(g.tabJunk[i], g.screen);
 
     }
@@ -133,7 +107,7 @@ void gameDraw(Game g) {
     // draw all fields
     for (i = 0; i < g.nbFields; i++)
     {
-        drawForceField(g.tabField[i], g.screen);
+        drawForcefield(g.tabField[i], g.screen);
     }
 
     // draw spaceship
@@ -183,10 +157,10 @@ Game gameInit(char* cheminNiveau, SDL_Surface** tabSprite)
     g.screen = SDL_GetVideoSurface();
     g.background = tabSprite[3];
     g.nbFields = 5;
-    g.tabField = malloc(sizeof(ForceField) * g.nbFields);
+    g.tabField = malloc(sizeof(Forcefield) * g.nbFields);
 
     for (i = 0; i < g.nbFields; i++)
-        g.tabField [i] = createForceField(rand() % (g.screen->w - 55), rand() % (g.screen->h - 55), 100, tabIntensite[rand() % 2], tabSprite[4], tabSprite[5]);
+        g.tabField [i] = createForcefield(rand() % (g.screen->w - 55), rand() % (g.screen->h - 55), 100, tabIntensite[rand() % 2], tabSprite[4], tabSprite[5]);
 
     g.tabJunk = NULL;
     g.comptJunk = 0;
@@ -201,7 +175,7 @@ Game gameInit(char* cheminNiveau, SDL_Surface** tabSprite)
     // Chargement d'un niveau
     loadLevel(lev, &g.tabJunk, &g.nbJunks, &g.player, tabSprite[1], tabSprite[0]);
 
-    addForces(&g.player, (Vector){-0.001, 0});
+    addForce(&g.player, (Vector){-0.001, 0});
 
     return g;
 
