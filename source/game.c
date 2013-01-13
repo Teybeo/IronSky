@@ -158,15 +158,11 @@ Game gameInit(char* cheminNiveau, SDL_Surface** tabSprite)
     g.tabJunk = NULL;
     g.comptJunk = 0;
 
-    Level lev = {};
-
 //    Level lev = generateLevel(screen->w, screen->h);
 //    saveLevel(lev);
 
-    lev = openFileLevel(cheminNiveau);
-
     // Chargement d'un niveau
-    loadLevel(lev, &g.tabJunk, &g.nbJunks, &g.player, tabSprite[1], tabSprite[0]);
+    loadLevel(cheminNiveau, &g.tabJunk, &g.nbJunks, &g.player, tabSprite[1], tabSprite[0]);
 
     addForce(&g.player, (Vector){-0.001, 0});
 

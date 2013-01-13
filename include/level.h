@@ -14,8 +14,7 @@ typedef struct Level {
 
 } Level;
 
-void loadLevel(Level lev, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite);
-
+void loadLevel(char* chemin, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite);
 Level generateLevel(int w, int h);
 Level createLevel(int nbJunk, Point* tabPosJunk, Point depart);
 

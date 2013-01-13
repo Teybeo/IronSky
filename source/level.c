@@ -56,18 +56,40 @@ void saveLevel(Level a) {
 
 }
 
-void loadLevel(Level lev, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite)
+void loadLevel(char* chemin, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite)
 {
 
-    *nbJunks = lev.nbJunks;
-    *tabJunk = malloc(lev.nbJunks * sizeof(Junk));
-    int i;
-    for( i = 0; i < lev.nbJunks; i++)
+    FILE* fichier = fopen(chemin, "rb");
+    if (fichier == NULL)
     {
-        (*tabJunk)[i] = createJunk(lev.tabPosJunk[i].x, lev.tabPosJunk[i].y, junkSprite);
+        puts("Probleme ouverture de test.niveau");
+        return;
     }
 
-    *spaceship = createSpaceShip(lev.depart.x, lev.depart.y, spaceshipSprite);
+    fread(nbJunks, sizeof(int), 1, fichier);
+
+    // Récupération du tableau de Points
+    Point* tabPosJunk = malloc(*nbJunks * sizeof(Point));
+    fread(tabPosJunk, sizeof(Point), *nbJunks, fichier);
+
+    // Création du tableau de Junks à partir des points récupérés
+    *tabJunk = malloc(*nbJunks * sizeof(Junk));
+    int i;
+    for( i = 0; i < *nbJunks; i++)
+    {
+        (*tabJunk)[i] = createJunk(tabPosJunk[i].x, tabPosJunk[i].y, junkSprite);
+    }
+
+    // Destruction du tableau de points
+    free(tabPosJunk);
+
+    Point depart = {};
+
+    fread(&depart, sizeof(Point), 1, fichier);
+
+    *spaceship = createSpaceShip(depart.x, depart.y, spaceshipSprite);
+
+    fclose(fichier);
 
 }
 
