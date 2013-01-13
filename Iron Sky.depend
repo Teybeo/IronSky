@@ -278,15 +278,15 @@
 	"vecteur.h"
 	<math.h>
 
-1357863299 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\app.c
-	"game.h"
-	"fonctionCSDL.h"
-	"SDL.h"
+1358107280 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\app.c
+	"manager.h"
 	<stdbool.h>
-	<stdlib.h>
-	<time.h>
 
-1357855039 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\game.h
+1358109085 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\game.h
+	"forcefield.h"
+	"level.h"
+	<stdbool.h>
+	"SDL.h"
 
 1356285535 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\fonctioncsdl.h
 
@@ -305,7 +305,7 @@
 	<SDL.h>
 	"SDL_image.h"
 
-1357863968 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\junk.c
+1358112680 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\junk.c
 	"junk.h"
 	"SDL.h"
 	"vector.h"
@@ -319,14 +319,14 @@
 1356287728 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\vecteur.h
 	"point.h"
 
-1357854501 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\level.c
+1358108878 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\level.c
 	"level.h"
 	"junk.h"
 	"SDL_video.h"
 	<stdio.h>
 	<stdlib.h>
 
-1357854493 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\level.h
+1358108852 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\level.h
 	"Point.h"
 	"junk.h"
 	"SDL_video.h"
@@ -336,7 +336,7 @@
 	"vector.h"
 	"SDL.h"
 
-1357863543 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\spaceship.c
+1358112480 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\spaceship.c
 	"spaceship.h"
 	"fonctionCSDL.h"
 	"SDL_rotozoom.h"
@@ -347,7 +347,8 @@
 	"vecteur.h"
 	<math.h>
 
-1358095731 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\game.c
+1358116828 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\game.c
+	"game.h"
 	"spaceship.h"
 	"junk.h"
 	"level.h"
@@ -377,4 +378,34 @@
 1358095656 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\chrono.c
 
 1357918668 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\chrono.h
+
+1358114313 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\manager.c
+	"manager.h"
+	"fonctionCSDL.h"
+	<memory.h>
+	<time.h>
+
+1358116296 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\menu.c
+	"menu.h"
+
+1358116444 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\menu.h
+	"SDL.h"
+	<stdbool.h>
+	"button.h"
+
+1358116570 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\manager.h
+	"menu.h"
+	"game.h"
+
+1358116294 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\button.h
+	"stdbool.h"
+	"SDL.h"
+	"point.h"
+
+1358116289 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\button.c
+	"button.h"
+
+1358107365 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\main.c
+	"manager.h"
+	<stdbool.h>
 

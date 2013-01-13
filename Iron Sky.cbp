@@ -47,15 +47,18 @@
 			<Add directory="$(#sdl_image.lib)" />
 			<Add directory="$(#sdl_gfx.lib)" />
 		</Linker>
+		<Unit filename="include/button.h" />
 		<Unit filename="include/fonctionCSDL.h" />
 		<Unit filename="include/forcefield.h" />
 		<Unit filename="include/game.h" />
 		<Unit filename="include/junk.h" />
 		<Unit filename="include/level.h" />
+		<Unit filename="include/manager.h" />
+		<Unit filename="include/menu.h" />
 		<Unit filename="include/point.h" />
 		<Unit filename="include/spaceship.h" />
 		<Unit filename="include/vector.h" />
-		<Unit filename="source/app.c">
+		<Unit filename="source/button.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/fonctionCSDL.c">
@@ -71,6 +74,15 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/level.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/manager.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/menu.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/spaceship.c">

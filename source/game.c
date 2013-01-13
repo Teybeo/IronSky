@@ -1,3 +1,5 @@
+#include "game.h"
+
 #include "spaceship.h"
 #include "junk.h"
 #include "level.h"
@@ -9,50 +11,8 @@
 #include <stdbool.h>
 #include <time.h>
 
-typedef struct {
 
-    SDL_Surface* screen;
-    SDL_Surface* background;
-    SpaceShip player;
-    Junk* tabJunk;
-    Forcefield* tabField;
-    int nbFields;
-    int nbJunks;
-    int comptJunk;
-
-} Game;
-
-Game gameInit(char* cheminNiveau, SDL_Surface** tabSprite);
-int gameRun(Game g);
-void gameEvent(bool* done);
-void gameLogic(bool* done, Game* g);
-void gameDraw(Game g);
-void updateAndPrintChrono(unsigned int* duration);
-
-int gameRun(Game g)
-{
-
-    unsigned int duration = 0;
-
-    // program main loop
-    bool done = false;
-    while (!done)
-    {
-        gameEvent(&done);
-        gameLogic(&done, &g);
-        gameDraw(g);
-
-        updateAndPrintChrono(&duration);
-
-    } // end main loop
-
-    // all is well ;)
-    printf("Fin de partie\n");
-
-    return 0;
-}
-
-void gameLogic(bool* done, Game* g)
+void gameLogic(Game* g)
 {
 
     int i;
@@ -79,7 +39,7 @@ void gameLogic(bool* done, Game* g)
     //printf("nbJunk %d\n", *comptJunk);
 
     if (g->comptJunk == g->nbJunks)
-        *done = true;
+        g->done = true;
 }
 
 void gameDraw(Game g) {
@@ -111,44 +71,32 @@ void gameDraw(Game g) {
 
 }
 
-void gameEvent(bool* done) {
+void gameEvent(Game* g, SDL_Event ev) {
 
-    SDL_Event event;
-
-    // message processing loop
-    while (SDL_PollEvent(&event))
+    switch (ev.type)
     {
-        // check for messages
-        switch (event.type)
-        {
-            // exit if the window is closed
-            case SDL_QUIT:
-                *done = true;
-            break;
+        // check for keypresses
+        case SDL_KEYDOWN:
 
-            // check for keypresses
-            case SDL_KEYDOWN:
+            // exit if ESCAPE is pressed
+            if (ev.key.keysym.sym == SDLK_ESCAPE)
+                g->done = true;
+        break;
 
-                // exit if ESCAPE is pressed
-                if (event.key.keysym.sym == SDLK_ESCAPE)
-                    *done = true;
-            break;
-
-        } // end switch
-
-    } // end of message processing
+    }
 
 }
 
-Game gameInit(char* cheminNiveau, SDL_Surface** tabSprite)
+Game gameInit(char* cheminNiveau, SDL_Surface* screen, SDL_Surface** tabSprite)
 {
     int i;
     int tabIntensite[2] = {-1, 1};
 
     Game g = {};
 
-    g.screen = SDL_GetVideoSurface();
+    g.screen = screen;
     g.background = tabSprite[3];
+    g.done = false;
     g.nbFields = 5;
     g.tabField = malloc(sizeof(Forcefield) * g.nbFields);
 
@@ -170,25 +118,10 @@ Game gameInit(char* cheminNiveau, SDL_Surface** tabSprite)
 
 }
 
-void gameLaunch(char* cheminNiveau, SDL_Surface** tabSprite) {
+void gameDestroy(Game g) {
 
-    Game g = gameInit(cheminNiveau, tabSprite);
-
-    gameRun(g);
-
-}
-
-
-void updateAndPrintChrono(unsigned int* duration) {
-
-    static unsigned int precedent = 0;
-    static char chaine[30];
-
-    *duration = SDL_GetTicks() - precedent;
-    precedent = SDL_GetTicks(); // On met à jour la date de la dernière image
-
-    sprintf(chaine, "Duree: %u ms", *duration);
-    SDL_WM_SetCaption(chaine, NULL);
+    free(g.tabField);
+    free(g.tabJunk);
+    SDL_FreeSurface(g.player.sprite);
 
 }
-
