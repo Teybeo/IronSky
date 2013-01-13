@@ -1,12 +1,9 @@
 #include "spaceship.h"
 #include "junk.h"
 #include "level.h"
-#include "fonctionCSDL.h"
 #include "point.h"
 #include "forcefield.h"
 #include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_rotozoom.h"
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -30,25 +27,22 @@ int gameRun(Game g);
 void gameEvent(bool* done);
 void gameLogic(bool* done, Game* g);
 void gameDraw(Game g);
+void updateAndPrintChrono(unsigned int* duration);
 
 int gameRun(Game g)
 {
+
+    unsigned int duration = 0;
 
     // program main loop
     bool done = false;
     while (!done)
     {
-        static float debut = 0;
-        debut = SDL_GetTicks();
-
         gameEvent(&done);
         gameLogic(&done, &g);
         gameDraw(g);
 
-        float duree = (SDL_GetTicks() - debut);
-        char chaine[30] = "";
-        sprintf(chaine, "Duree: %.0f ms", duree);
-        SDL_WM_SetCaption(chaine, NULL);
+        updateAndPrintChrono(&duration);
 
     } // end main loop
 
@@ -62,7 +56,6 @@ void gameLogic(bool* done, Game* g)
 {
 
     int i;
-
 
     resolveWallCollision(&g->player, g->screen->w, g->screen->h);
 
@@ -190,5 +183,16 @@ void gameLaunch(char* cheminNiveau, SDL_Surface** tabSprite) {
 }
 
 
+void updateAndPrintChrono(unsigned int* duration) {
 
+    static unsigned int precedent = 0;
+    static char chaine[30];
+
+    *duration = SDL_GetTicks() - precedent;
+    precedent = SDL_GetTicks(); // On met à jour la date de la dernière image
+
+    sprintf(chaine, "Duree: %u ms", *duration);
+    SDL_WM_SetCaption(chaine, NULL);
+
+}
 

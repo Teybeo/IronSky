@@ -278,7 +278,7 @@
 	"vecteur.h"
 	<math.h>
 
-1357857110 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\app.c
+1357863299 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\app.c
 	"game.h"
 	"fonctionCSDL.h"
 	"SDL.h"
@@ -305,13 +305,13 @@
 	<SDL.h>
 	"SDL_image.h"
 
-1357861635 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\junk.c
+1357863968 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\junk.c
 	"junk.h"
 	"SDL.h"
 	"vector.h"
 	"SDL_gfxPrimitives.h"
 
-1357861585 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\junk.h
+1357863974 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\junk.h
 	"SDL.h"
 	"Point.h"
 	<stdbool.h>
@@ -332,11 +332,11 @@
 	"SDL_video.h"
 	"spaceship.h"
 
-1357862532 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\spaceship.h
+1357863551 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\spaceship.h
 	"vector.h"
 	"SDL.h"
 
-1357862546 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\spaceship.c
+1357863543 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\spaceship.c
 	"spaceship.h"
 	"fonctionCSDL.h"
 	"SDL_rotozoom.h"
@@ -347,16 +347,13 @@
 	"vecteur.h"
 	<math.h>
 
-1357862668 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\game.c
+1358095731 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\game.c
 	"spaceship.h"
 	"junk.h"
 	"level.h"
-	"fonctionCSDL.h"
 	"point.h"
 	"forcefield.h"
 	"SDL.h"
-	"SDL_image.h"
-	"SDL_rotozoom.h"
 	<stdlib.h>
 	<stdbool.h>
 	<time.h>
@@ -368,10 +365,16 @@
 	"vector.h"
 	<math.h>
 
-1357859514 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\forcefield.c
+1357863689 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\forcefield.c
 	"forcefield.h"
 
-1357858876 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\forcefield.h
+1357864127 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\forcefield.h
 	"point.h"
+	"vector.h"
 	"SDL.h"
+	<stdbool.h>
+
+1358095656 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\chrono.c
+
+1357918668 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\chrono.h
 
