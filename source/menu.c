@@ -15,8 +15,8 @@ void menuEvent(Menu* m, SDL_Event ev) {
 
     if (ev.type == SDL_MOUSEMOTION)
     {
-        updateButtonState(&m->play, (Point) {ev.motion.x, ev.motion.y} );
-        updateButtonState(&m->quit, (Point) {ev.motion.x, ev.motion.y} );
+        updateButtonState(&m->play, ev.motion.x, ev.motion.y);
+        updateButtonState(&m->quit, ev.motion.x, ev.motion.y);
     }
 
     if (ev.type == SDL_MOUSEBUTTONUP)
@@ -35,21 +35,8 @@ Menu menuInit(SDL_Surface* screen) {
 
     m.screen = screen;
 
-    m.play.rect.x = 500;
-    m.play.rect.y = 100;
-    m.play.rect.w = 200;
-    m.play.rect.h = 100;
-    m.play.color[NORMAL] = 0x145321ff;
-    m.play.color[HOVER] = 0x999921ff;
-    m.play.state = false;
-
-    m.quit.rect.x = 500;
-    m.quit.rect.y = 500;
-    m.quit.rect.w = 200;
-    m.quit.rect.h = 100;
-    m.quit.color[NORMAL] = 0x145321ff;
-    m.quit.color[HOVER] = 0x999921ff;
-    m.quit.state = false;
+    m.play = createButton(500, 100, 200, 100, 0x5321ff, 0x9921ff);
+    m.quit = createButton(500, 500, 200, 100, 0x5321ff, 0x9921ff);
 
     return m;
 }

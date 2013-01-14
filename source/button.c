@@ -1,17 +1,36 @@
 #include "button.h"
 
-void updateButtonState(Button *button, Point posMouse)
+void updateButtonState(Button *button, int mouseX, int mouseY)
 {
-    if (posMouse.x > button->rect.x && posMouse.x < button->rect.x + button->rect.w && posMouse.y < button->rect.y + button->rect.h && posMouse.y > button->rect.y)
-    {
+    if (isInBox(button->rect, mouseX, mouseY))
         button->state = HOVER;
-    }
     else
         button->state = NORMAL;
+}
+
+bool isInBox(SDL_Rect rect, int x, int y) {
+
+    return (x > rect.x && x < rect.x + rect.w && y < rect.y + rect.h && y > rect.y);
+
 }
 
 void drawButton(Button b, SDL_Surface* screen) {
 
     SDL_FillRect(screen, &b.rect, b.color[b.state]);
 
+}
+
+Button createButton(int x, int y, int w, int h, Uint32 colorNormal, Uint32 colorHover) {
+
+    Button b = {};
+
+    b.rect.x = x;
+    b.rect.y = y;
+    b.rect.w = w;
+    b.rect.h = h;
+    b.color[NORMAL] = colorNormal;
+    b.color[HOVER] = colorHover;
+    b.state = NORMAL;
+
+    return b;
 }
