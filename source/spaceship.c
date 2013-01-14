@@ -16,7 +16,7 @@ SpaceShip createSpaceShip(int x0, int y0, SDL_Surface* sprite)
     spaceshipA.vitesse = vecteurNull;
     spaceshipA.totalForces = vecteurNull;
     spaceshipA.spriteOriginal = sprite;
-    spaceshipA.sprite = NULL;
+    spaceshipA.sprite = sprite;
 
     return spaceshipA;
 }
@@ -65,7 +65,7 @@ void turnSpaceShip(SpaceShip* a) {
 
     float angle = atan2(-a->vitesse.y, a->vitesse.x) * 180/M_PI;
 
-    if (a->sprite != NULL)
+    if (a->sprite != NULL && a->sprite != a->spriteOriginal)
         SDL_FreeSurface(a->sprite);
 
 //    printf("angle %f\n", angle);

@@ -21,7 +21,7 @@ typedef struct {
 
 } Game;
 
-Game gameInit(char* cheminNiveau, SDL_Surface* screen, SDL_Surface** tabSprite);
+Game gameInit(int IDlevel, SDL_Surface* screen, SDL_Surface** tabSprite);
 void gameEvent(Game* done, SDL_Event ev);
 void gameLogic(Game* g);
 void gameDraw(Game g);

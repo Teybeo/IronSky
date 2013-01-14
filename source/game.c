@@ -87,7 +87,7 @@ void gameEvent(Game* g, SDL_Event ev) {
 
 }
 
-Game gameInit(char* cheminNiveau, SDL_Surface* screen, SDL_Surface** tabSprite)
+Game gameInit(int IDlevel, SDL_Surface* screen, SDL_Surface** tabSprite)
 {
     int i;
     int tabIntensite[2] = {-1, 1};
@@ -106,11 +106,8 @@ Game gameInit(char* cheminNiveau, SDL_Surface* screen, SDL_Surface** tabSprite)
     g.tabJunk = NULL;
     g.comptJunk = 0;
 
-//    Level lev = generateLevel(screen->w, screen->h);
-//    saveLevel(lev);
-
     // Chargement d'un niveau
-    loadLevel(cheminNiveau, &g.tabJunk, &g.nbJunks, &g.player, tabSprite[1], tabSprite[0]);
+    loadLevel(IDlevel, &g.tabJunk, &g.nbJunks, &g.player, tabSprite[1], tabSprite[0]);
 
     addForce(&g.player, (Vector){-0.001, 0});
 

@@ -53,6 +53,7 @@
 		<Unit filename="include/game.h" />
 		<Unit filename="include/junk.h" />
 		<Unit filename="include/level.h" />
+		<Unit filename="include/levelMenu.h" />
 		<Unit filename="include/manager.h" />
 		<Unit filename="include/menu.h" />
 		<Unit filename="include/point.h" />
@@ -74,6 +75,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/level.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/levelMenu.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/main.c">

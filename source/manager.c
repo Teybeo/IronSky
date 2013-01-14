@@ -37,35 +37,63 @@ void manageEvent(Manager* m) {
             menuEvent(&m->menu, ev);
         else if (m->current == GAME_STATE)
             gameEvent(&m->game, ev);
+        else if (m->current == LEVELMENU_STATE)
+            levelMenuEvent(&m->levelMenu, ev);
     }
 
 }
 
 void manageLogic(Manager* m) {
 
-    if (m->menu.done == true)
-        m->done = true;
-
-    // Passage à l'état Jeu
-    if (m->menu.gotoGame == true)
+    switch (m->current)
     {
-        m->current = GAME_STATE;
-        m->menu.gotoGame = false;
-        m->game = gameInit("test.niveau", m->screen, m->tabSprite);
-    }
+    case MENU_STATE:
 
-    // Passage à l'état Menu
-    if (m->game.done == true)
-    {
-        m->current =  MENU_STATE;
-        gameDestroy(m->game);
-        m->game.done = false;
-    }
+        if (m->menu.done == true)
+            m->done = true;
 
-//    if (m->current == MENU_STATE)
-//        menuLogic(&m->menu);
-     if (m->current == GAME_STATE)
+        // Passage à l'état LevelMenu
+        if (m->menu.goToLevelMenu == true)
+        {
+            m->current = LEVELMENU_STATE;
+            m->menu.goToLevelMenu = false;
+        }
+
+    break;
+
+    case LEVELMENU_STATE:
+
+        if (m->levelMenu.goToGame != -1)
+        {
+            m->current = GAME_STATE;
+            m->game = gameInit(m->levelMenu.goToGame, m->screen, m->tabSprite);
+            m->levelMenu.goToGame = -1;
+        }
+
+        if (m->levelMenu.goToMenu == true)
+        {
+            m->current = MENU_STATE;
+            m->levelMenu.goToMenu = false;
+        }
+
+
+    break;
+
+    case GAME_STATE:
+
         gameLogic(&m->game);
+
+        // Passage à l'état LeveLMenu
+        if (m->game.done == true)
+        {
+            m->current =  LEVELMENU_STATE;
+            gameDestroy(m->game);
+            m->game.done = false;
+        }
+
+    break;
+    }
+
 }
 
 void manageDraw(Manager* m) {
@@ -74,13 +102,17 @@ void manageDraw(Manager* m) {
         menuDraw(m->menu);
     else if (m->current == GAME_STATE)
         gameDraw(m->game);
+    else if (m->current == LEVELMENU_STATE)
+        levelMenuDraw(m->levelMenu);
 
     // Mise à jour du titre de la fenêtre
-    char chaine[30] = "";
+    char chaine[50] = "";
     if (m->current == MENU_STATE)
         sprintf(chaine, "Menu");
     else if (m->current == GAME_STATE)
         sprintf(chaine, "Game");
+    else if (m->current == LEVELMENU_STATE)
+        sprintf(chaine, "LevelMenu");
 
     char temp[10] = "";
     sprintf(temp, " %u ms", updateChrono());
@@ -114,6 +146,7 @@ bool managerInit(Manager* m) {
     m->tabSprite = loadSprites();
 
     m->menu = menuInit(m->screen);
+    m->levelMenu = levelMenuInit(m->screen);
 
     m->current = MENU_STATE;
 

@@ -20,7 +20,7 @@ Level generateLevel(int w, int h)
     Level lev = {};
 
     // Création d'un niveau aléatoirement
-    lev.nbJunks = rand() % 2000;
+    lev.nbJunks = rand() % 500;
 
     //creer un nouveau tableau contenant exclusivement les positions des dechets
     lev.tabPosJunk = malloc(lev.nbJunks * sizeof(Point));
@@ -56,13 +56,16 @@ void saveLevel(Level a) {
 
 }
 
-void loadLevel(char* chemin, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite)
+
+void loadLevel(int IDlevel, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite)
 {
+    char chemin[20] = "";
+    sprintf(chemin, "Niveaux/%d.niveau", IDlevel);
 
     FILE* fichier = fopen(chemin, "rb");
     if (fichier == NULL)
     {
-        puts("Probleme ouverture de test.niveau");
+        printf("Impossible d'ouvrir le fichier %s", chemin);
         return;
     }
 

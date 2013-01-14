@@ -2,7 +2,7 @@
 
 void menuDraw(Menu m) {
 
-    SDL_BlitSurface(m.background, NULL, m.screen, NULL);
+    SDL_FillRect(m.screen, NULL, 0x000000);
 
     drawButton(m.play, m.screen);
     drawButton(m.quit, m.screen);
@@ -22,7 +22,7 @@ void menuEvent(Menu* m, SDL_Event ev) {
     if (ev.type == SDL_MOUSEBUTTONUP)
     {
         if (m->play.state == HOVER)
-            m->gotoGame = true;
+            m->goToLevelMenu = true;
         if (m->quit.state == HOVER)
             m->done = true;
     }

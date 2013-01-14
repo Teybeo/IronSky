@@ -11,7 +11,7 @@ typedef struct Menu {
     SDL_Surface* background; // image de fond
     Button play;             // bouton pour lancer une partie
     Button quit;             // bouton pour quitter le jeu
-    bool gotoGame;           // indique au manager de lancer le jeu
+    bool goToLevelMenu;      // indique le passage à l'écran de sélection des niveaux
     bool done;               // indique l'arret du programme
 
 } Menu;
