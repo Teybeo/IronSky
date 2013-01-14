@@ -2,20 +2,22 @@
 #define _GAME
 
 #include "forcefield.h"
-#include "level.h"
-#include <stdbool.h>
+#include "spaceship.h"
+#include "junk.h"
 
 #include "SDL.h"
 
-typedef struct {
+typedef struct Game {
 
     SDL_Surface* screen;
     SDL_Surface* background;
     SpaceShip player;
     Junk* tabJunk;
-    Forcefield* tabField;
-    int nbFields;
+    Forcefield* tabAttractor;
+    Forcefield* tabRepulsor;
     int nbJunks;
+    int nbAttractors;
+    int nbRepulsors;
     int comptJunk;
     bool done;
 

@@ -1,121 +1,90 @@
 #include "level.h"
 
-#include "junk.h"
 #include "SDL_video.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-Level createLevel(int nbJunks, Point* tabPosJunk, Point depart) {
+FILE* openLevelByID(int ID, const char* mode);
 
-    Level a = {};
-    a.nbJunks = nbJunks;
-    a.tabPosJunk = tabPosJunk;
-    a.depart = depart;
-
-    return a;
-}
-
-Level generateLevel(int w, int h)
+void loadLevel(int IDlevel, Game* g, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite)
 {
-    Level lev = {};
+    FILE* fichier = openLevelByID(IDlevel, "rb");
 
-    // Création d'un niveau aléatoirement
-    lev.nbJunks = rand() % 500;
+    fread(&g->nbJunks, sizeof(int), 1, fichier);
 
-    //creer un nouveau tableau contenant exclusivement les positions des dechets
-    lev.tabPosJunk = malloc(lev.nbJunks * sizeof(Point));
-    int i;
-    for(i = 0; i < lev.nbJunks; i++)
-    {
-        lev.tabPosJunk[i].x = rand() % (w - 55);
-        lev.tabPosJunk[i].y = rand() % (h - 55);
-    }
-
-    lev.depart.x = rand() % w;;
-    lev.depart.y = rand() % h;;
-
-    return lev;
-}
-
-void saveLevel(Level a) {
-
-    FILE* fichier = fopen("test.niveau", "wb");
-    if (fichier == NULL)
-    {
-        puts("Probleme ouverture de test.niveau");
-        return;
-    }
-
-    fwrite(&a.nbJunks, sizeof(int), 1, fichier);
-
-    fwrite(a.tabPosJunk, sizeof(Point), a.nbJunks, fichier);
-
-    fwrite(&a.depart, sizeof(Point), 1, fichier);
-
-    fclose(fichier);
-
-}
-
-
-void loadLevel(int IDlevel, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite)
-{
-    char chemin[20] = "";
-    sprintf(chemin, "Niveaux/%d.niveau", IDlevel);
-
-    FILE* fichier = fopen(chemin, "rb");
-    if (fichier == NULL)
-    {
-        printf("Impossible d'ouvrir le fichier %s", chemin);
-        return;
-    }
-
-    fread(nbJunks, sizeof(int), 1, fichier);
-
-    // Récupération du tableau de Points
-    Point* tabPosJunk = malloc(*nbJunks * sizeof(Point));
-    fread(tabPosJunk, sizeof(Point), *nbJunks, fichier);
+    //Récupération du tableau de Points
+    Point* tabPosJunk = malloc(g->nbJunks * sizeof(Point));
+    fread(tabPosJunk, sizeof(Point), g->nbJunks, fichier);
 
     // Création du tableau de Junks à partir des points récupérés
-    *tabJunk = malloc(*nbJunks * sizeof(Junk));
+    g->tabJunk = malloc(g->nbJunks * sizeof(Junk));
     int i;
-    for( i = 0; i < *nbJunks; i++)
+    for( i = 0; i < g->nbJunks; i++)
     {
-        (*tabJunk)[i] = createJunk(tabPosJunk[i].x, tabPosJunk[i].y, junkSprite);
+        g->tabJunk[i] = createJunk(tabPosJunk[i].x, tabPosJunk[i].y, junkSprite);
     }
 
     // Destruction du tableau de points
     free(tabPosJunk);
 
     Point depart = {};
-
     fread(&depart, sizeof(Point), 1, fichier);
 
-    *spaceship = createSpaceShip(depart.x, depart.y, spaceshipSprite);
+    g->player = createSpaceShip(depart.x, depart.y, spaceshipSprite);
+
+    fread(&g->nbAttractors, sizeof(int), 1, fichier);
+
+    fread(&g->nbRepulsors, sizeof(int), 1, fichier);
 
     fclose(fichier);
 
 }
 
-Level openFileLevel(char* chemin) {
+void generateRandomLevel(int w, int h, int IDLevel)
+{
+    // Création d'un niveau aléatoirement
+    int nbJunks = rand() % 500;
+    int nbAttractors = rand() % 3;
+    int nbRepulsors = rand() % 3;
 
-    Level a = {};
-
-    FILE* fichier = fopen(chemin, "rb");
-    if (fichier == NULL)
+    // créer un nouveau tableau contenant exclusivement les positions des dechets
+    Point* tabPosJunk = malloc(nbJunks * sizeof(Point));
+    int i;
+    for(i = 0; i < nbJunks; i++)
     {
-        puts("Probleme ouverture de test.niveau");
-        return a;
+        tabPosJunk[i].x = rand() % (w - 55);
+        tabPosJunk[i].y = rand() % (h - 55);
     }
 
-    fread(&a.nbJunks, sizeof(int), 1, fichier);
+    Point depart = { rand() % w, rand() % h };
 
-    a.tabPosJunk = malloc(a.nbJunks * sizeof(Point));
+    FILE* fichier = openLevelByID(IDLevel, "wb");
 
-    fread(a.tabPosJunk, sizeof(Point), a.nbJunks, fichier);
+    fwrite(&nbJunks, sizeof(int), 1, fichier);
 
-    fread(&a.depart, sizeof(Point), 1, fichier);
+    fwrite(tabPosJunk, sizeof(Point), nbJunks, fichier);
+
+    fwrite(&depart, sizeof(Point), 1, fichier);
+
+    fwrite(&nbAttractors, sizeof(int), 1, fichier);
+
+    fwrite(&nbRepulsors, sizeof(int), 1, fichier);
 
     fclose(fichier);
+}
 
-    return a;
+FILE* openLevelByID(int ID, const char* mode) {
+
+    char chemin[20] = "";
+    sprintf(chemin, "Niveaux/%d.niveau", ID);
+
+    FILE* fichier = fopen(chemin, mode);
+    if (fichier == NULL)
+    {
+        printf("Probleme ouverture de %s en mode %s\n", chemin, mode);
+        exit(1);
+    }
+
+    return fichier;
+
 }

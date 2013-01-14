@@ -1,15 +1,12 @@
 #include "forcefield.h"
 
-Forcefield createForcefield(int x, int y, int rayon, int intensity, SDL_Surface* spriteAtt, SDL_Surface* spriteRep)
+Forcefield createForcefield(int x, int y, int rayon, int intensity, SDL_Surface* sprite)
 {
     Forcefield a = {};
     a.pos = (Point){x, y};
     a.rayon = rayon;
     a.intensity = intensity;
-    if (intensity < 0)
-        a.sprite = spriteAtt;
-    else
-        a.sprite = spriteRep;
+    a.sprite = sprite;
 
     return a;
 

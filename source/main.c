@@ -1,7 +1,5 @@
 #include "manager.h"
 
-#include <stdbool.h>
-
 int main() {
 
     Manager m = {};

@@ -1,29 +1,27 @@
 #include "game.h"
 
-#include "spaceship.h"
-#include "junk.h"
 #include "level.h"
-#include "point.h"
-#include "forcefield.h"
-#include "SDL.h"
-
-#include <stdlib.h>
-#include <stdbool.h>
-#include <time.h>
-
 
 void gameLogic(Game* g)
 {
-
     int i;
 
     resolveWallCollision(&g->player, g->screen->w, g->screen->h);
 
-    for (i = 0; i < g->nbFields; i++)
+    for (i = 0; i < g->nbAttractors; i++)
     {
-        if (isInForcefieldRange(g->tabField[i], g->player.pos) == true)
+        if (isInForcefieldRange(g->tabAttractor[i], g->player.pos) == true)
         {
-            Vector force = calculateForce(g->tabField[i], g->player.pos);
+            Vector force = calculateForce(g->tabAttractor[i], g->player.pos);
+            addForce(&g->player, force);
+        }
+    }
+
+    for (i = 0; i < g->nbRepulsors; i++)
+    {
+        if (isInForcefieldRange(g->tabRepulsor[i], g->player.pos) == true)
+        {
+            Vector force = calculateForce(g->tabRepulsor[i], g->player.pos);
             addForce(&g->player, force);
         }
     }
@@ -57,10 +55,16 @@ void gameDraw(Game g) {
 
     }
 
-    // draw all fields
-    for (i = 0; i < g.nbFields; i++)
+    // draw all attractors
+    for (i = 0; i < g.nbAttractors; i++)
     {
-        drawForcefield(g.tabField[i], g.screen);
+        drawForcefield(g.tabAttractor[i], g.screen);
+    }
+
+    // draw all repulsors
+    for (i = 0; i < g.nbRepulsors; i++)
+    {
+        drawForcefield(g.tabRepulsor[i], g.screen);
     }
 
     // draw spaceship
@@ -75,10 +79,9 @@ void gameEvent(Game* g, SDL_Event ev) {
 
     switch (ev.type)
     {
-        // check for keypresses
         case SDL_KEYDOWN:
 
-            // exit if ESCAPE is pressed
+            // Mise en pause
             if (ev.key.keysym.sym == SDLK_ESCAPE)
                 g->done = true;
         break;
@@ -90,24 +93,27 @@ void gameEvent(Game* g, SDL_Event ev) {
 Game gameInit(int IDlevel, SDL_Surface* screen, SDL_Surface** tabSprite)
 {
     int i;
-    int tabIntensite[2] = {-1, 1};
 
     Game g = {};
 
     g.screen = screen;
     g.background = tabSprite[3];
     g.done = false;
-    g.nbFields = 5;
-    g.tabField = malloc(sizeof(Forcefield) * g.nbFields);
-
-    for (i = 0; i < g.nbFields; i++)
-        g.tabField [i] = createForcefield(rand() % (g.screen->w - 55), rand() % (g.screen->h - 55), 100, tabIntensite[rand() % 2], tabSprite[4], tabSprite[5]);
 
     g.tabJunk = NULL;
     g.comptJunk = 0;
 
     // Chargement d'un niveau
-    loadLevel(IDlevel, &g.tabJunk, &g.nbJunks, &g.player, tabSprite[1], tabSprite[0]);
+    loadLevel(IDlevel, &g, tabSprite[1], tabSprite[0]);
+
+    g.tabAttractor = malloc(sizeof(Forcefield) * g.nbAttractors);
+    g.tabRepulsor = malloc(sizeof(Forcefield) * g.nbRepulsors);
+
+    for (i = 0; i < g.nbAttractors; i++)
+        g.tabAttractor [i] = createForcefield(rand() % (g.screen->w - 55), rand() % (g.screen->h - 55), 100, -1, tabSprite[4] );
+
+    for (i = 0; i < g.nbRepulsors; i++)
+        g.tabRepulsor [i] = createForcefield(rand() % (g.screen->w - 55), rand() % (g.screen->h - 55), 100, 1, tabSprite[5] );
 
     addForce(&g.player, (Vector){-0.001, 0});
 
@@ -117,7 +123,8 @@ Game gameInit(int IDlevel, SDL_Surface* screen, SDL_Surface** tabSprite)
 
 void gameDestroy(Game g) {
 
-    free(g.tabField);
+    free(g.tabAttractor);
+    free(g.tabRepulsor);
     free(g.tabJunk);
     SDL_FreeSurface(g.player.sprite);
 

@@ -6,21 +6,12 @@
 #include "SDL_video.h"
 #include "spaceship.h"
 
-typedef struct Level {
+//typedef struct Game Game;
 
-    int nbJunks;
-    Point* tabPosJunk;
-    Point depart;
+#include "game.h"
 
-} Level;
-
-
-void loadLevel(int IDlevel, Junk** tabJunk, int* nbJunks, SpaceShip* spaceship, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite);
-Level generateLevel(int w, int h);
-Level createLevel(int nbJunk, Point* tabPosJunk, Point depart);
-
-Level openFileLevel(char* chemin);
-void saveLevel(Level a);
+void loadLevel(int IDlevel, Game* g, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite);
+void generateRandomLevel(int w, int h, int IDLevel);
 
 #endif // LEVEL
 
