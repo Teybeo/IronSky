@@ -51,6 +51,7 @@
 		<Unit filename="include/fonctionCSDL.h" />
 		<Unit filename="include/forcefield.h" />
 		<Unit filename="include/game.h" />
+		<Unit filename="include/gamePause.h" />
 		<Unit filename="include/junk.h" />
 		<Unit filename="include/level.h" />
 		<Unit filename="include/levelMenu.h" />
@@ -69,6 +70,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/game.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/gamePause.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/junk.c">

@@ -39,6 +39,8 @@ void manageEvent(Manager* m) {
             gameEvent(&m->game, ev);
         else if (m->current == LEVELMENU_STATE)
             levelMenuEvent(&m->levelMenu, ev);
+        else if (m->current == GAMEPAUSE_STATE)
+            gamePauseEvent(&m->gamePause, ev);
     }
 
 }
@@ -83,13 +85,42 @@ void manageLogic(Manager* m) {
 
         gameLogic(&m->game);
 
-        // Passage à l'état LeveLMenu
+        // Passage à l'état GamePause
         if (m->game.done == true)
         {
-            m->current =  LEVELMENU_STATE;
-            gameDestroy(m->game);
+            m->current = GAMEPAUSE_STATE;
+//            gameDestroy(m->game);
             m->game.done = false;
         }
+
+    break;
+
+    case GAMEPAUSE_STATE:
+
+        // Passage à l'état Game
+        if (m->gamePause.resume == true)
+        {
+            m->current = GAME_STATE;
+//            gameDestroy(m->game);
+            m->gamePause.resume = false;
+        }
+
+        // Passage à l'état LevelMenu
+        if (m->gamePause.changeLevel == true)
+        {
+            m->current = LEVELMENU_STATE;
+            gameDestroy(m->game);
+            m->gamePause.changeLevel = false;
+        }
+
+        // Passage à l'état MainMenu
+        if (m->gamePause.mainMenu == true)
+        {
+            m->current = MENU_STATE;
+            gameDestroy(m->game);
+            m->gamePause.mainMenu = false;
+        }
+
 
     break;
     }
@@ -104,6 +135,8 @@ void manageDraw(Manager* m) {
         gameDraw(m->game);
     else if (m->current == LEVELMENU_STATE)
         levelMenuDraw(m->levelMenu);
+    else if (m->current == GAMEPAUSE_STATE)
+        gamePauseDraw(m->gamePause);
 
     // Mise à jour du titre de la fenêtre
     char chaine[50] = "";
@@ -147,6 +180,7 @@ bool managerInit(Manager* m) {
 
     m->menu = menuInit(m->screen);
     m->levelMenu = levelMenuInit(m->screen);
+    m->gamePause = gamePauseInit(m->screen);
 
     m->current = MENU_STATE;
 
