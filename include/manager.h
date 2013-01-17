@@ -5,13 +5,15 @@
 #include "game.h"
 #include "levelMenu.h"
 #include "gamePause.h"
+#include "gameDeployment.h"
 
 typedef enum {
 
     MENU_STATE,
     LEVELMENU_STATE,
     GAME_STATE,
-    GAMEPAUSE_STATE
+    GAMEPAUSE_STATE,
+    GAMEDEPLOYMENT_STATE
 
 } AppState;
 
@@ -24,6 +26,7 @@ typedef struct Manager {
     LevelMenu levelMenu;
     Game game;
     GamePause gamePause;
+    GameDeployment gameDeployment;
     bool done;               // indique l'arrêt du programme
 
 } Manager;

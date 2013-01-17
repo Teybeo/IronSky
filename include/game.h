@@ -20,6 +20,7 @@ typedef struct Game {
     int nbRepulsors;
     int comptJunk;
     bool done;
+    bool deployment;
 
 } Game;
 

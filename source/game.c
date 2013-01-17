@@ -71,6 +71,11 @@ void gameEvent(Game* g, SDL_Event ev) {
             // Mise en pause
             if (ev.key.keysym.sym == SDLK_ESCAPE)
                 g->done = true;
+
+            // Passage en mode deployment
+            if (ev.key.keysym.sym == SDLK_SPACE)
+                g->deployment = true;
+
         break;
 
     }
@@ -86,6 +91,7 @@ Game gameInit(int IDlevel, SDL_Surface* screen, SDL_Surface** tabSprite)
     g.screen = screen;
     g.background = tabSprite[3];
     g.done = false;
+    g.deployment = false;
 
     g.tabJunk = NULL;
     g.comptJunk = 0;
@@ -93,14 +99,10 @@ Game gameInit(int IDlevel, SDL_Surface* screen, SDL_Surface** tabSprite)
     // Chargement d'un niveau
     loadLevel(IDlevel, &g, tabSprite[1], tabSprite[0]);
 
-    g.tabAttractor = malloc(sizeof(Forcefield) * g.nbAttractors);
-    g.tabRepulsor = malloc(sizeof(Forcefield) * g.nbRepulsors);
+    g.tabAttractor = NULL;
+    g.tabRepulsor = NULL;
 
-    for (i = 0; i < g.nbAttractors; i++)
-        g.tabAttractor [i] = createForcefield(rand() % (g.screen->w - 55), rand() % (g.screen->h - 55), 100, -1, tabSprite[4] );
 
-    for (i = 0; i < g.nbRepulsors; i++)
-        g.tabRepulsor [i] = createForcefield(rand() % (g.screen->w - 55), rand() % (g.screen->h - 55), 100, 1, tabSprite[5] );
 
     addForce(&g.player, (Vector){-0.001, 0});
 
@@ -120,5 +122,6 @@ void gameDestroy(Game g) {
 void resetInputGame(Game* g) {
 
     g->done = false;
+    g->deployment = false;
 
 }

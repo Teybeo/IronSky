@@ -41,11 +41,15 @@ void manageEvent(Manager* m) {
             levelMenuEvent(&m->levelMenu, ev);
         else if (m->current == GAMEPAUSE_STATE)
             gamePauseEvent(&m->gamePause, ev);
+        else if (m->current == GAMEDEPLOYMENT_STATE)
+            gameDeploymentEvent(&m->gameDeployment, ev);
     }
 
 }
 
 void manageLogic(Manager* m) {
+
+    static int gamePhase;
 
     switch (m->current)
     {
@@ -67,9 +71,11 @@ void manageLogic(Manager* m) {
 
         if (m->levelMenu.goToGame > 0)
         {
-            m->current = GAME_STATE;
+            m->current = GAMEDEPLOYMENT_STATE;
             m->game = gameInit(m->levelMenu.goToGame, m->screen, m->tabSprite);
+            m->gameDeployment = gameDeploymentInit(m->screen, &m->game, m->tabSprite[4], m->tabSprite[5]);
             resetInputLevelMenu(&m->levelMenu);
+            gamePhase = GAMEDEPLOYMENT_STATE;
         }
 
         if (m->levelMenu.goToMenu == true)
@@ -87,19 +93,24 @@ void manageLogic(Manager* m) {
         if (m->game.done == true)
         {
             m->current = GAMEPAUSE_STATE;
-//            gameDestroy(m->game);
             resetInputGame(&m->game);
         }
 
+        // Passage à l'état GameDeployment
+        if (m->game.deployment == true)
+        {
+            m->current = GAMEDEPLOYMENT_STATE;
+            resetInputGame(&m->game);
+            gamePhase = GAMEDEPLOYMENT_STATE;
+        }
     break;
 
     case GAMEPAUSE_STATE:
 
-        // Passage à l'état Game
+        // Passage à l'état Game ou GameDeployment
         if (m->gamePause.resume == true)
         {
-            m->current = GAME_STATE;
-//            gameDestroy(m->game);
+            m->current = gamePhase;
             resetInputGamePause(&m->gamePause);
         }
 
@@ -118,9 +129,26 @@ void manageLogic(Manager* m) {
             resetInputGamePause(&m->gamePause);
             gameDestroy(m->game);
         }
-
-
     break;
+
+    case GAMEDEPLOYMENT_STATE:
+
+        // Passage à l'état Game
+        if (m->gameDeployment.pause == true)
+        {
+            m->current = GAMEPAUSE_STATE;
+            resetInputGameDeployment(&m->gameDeployment);
+        }
+
+        // Passage à l'état GameDeployment
+        if (m->gameDeployment.game == true)
+        {
+            m->current = GAME_STATE;
+            resetInputGameDeployment(&m->gameDeployment);
+            gamePhase = GAME_STATE;
+        }
+    break;
+
     }
 
 }
@@ -135,6 +163,9 @@ void manageDraw(Manager* m) {
         levelMenuDraw(m->levelMenu);
     else if (m->current == GAMEPAUSE_STATE)
         gamePauseDraw(m->gamePause);
+    else if (m->current == GAMEDEPLOYMENT_STATE)
+        gameDeploymentDraw(m->gameDeployment);
+
 
     // Mise à jour du titre de la fenêtre
     char chaine[50] = "";
@@ -146,6 +177,8 @@ void manageDraw(Manager* m) {
         sprintf(chaine, "LevelMenu");
     else if (m->current == GAMEPAUSE_STATE)
         sprintf(chaine, "GamePause");
+    else if (m->current == GAMEDEPLOYMENT_STATE)
+        sprintf(chaine, "GameDeployment");
 
     char temp[10] = "";
     sprintf(temp, " %u ms", updateChrono());
