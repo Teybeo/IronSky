@@ -68,5 +68,16 @@ LevelMenu levelMenuInit(SDL_Surface* screen) {
     return m;
 }
 
+void resetInputLevelMenu(LevelMenu* m) {
 
+    m->goToGame = -1;
+    m->goToMenu = false;
+
+    m->quit.state = NORMAL;
+    int i;
+    for (i = 0 ; i < NBLEVELS ; i++ )
+        m->level[i].state = NORMAL;
+
+
+}
 

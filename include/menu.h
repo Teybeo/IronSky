@@ -19,5 +19,6 @@ typedef struct Menu {
 void menuEvent(Menu* m, SDL_Event ev);
 void menuDraw(Menu m);
 Menu menuInit(SDL_Surface* screen);
+void resetInputMenu(Menu* m);
 
 #endif // MENU

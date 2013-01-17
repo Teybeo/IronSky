@@ -22,6 +22,7 @@ typedef struct LevelMenu {
 void levelMenuEvent(LevelMenu* m, SDL_Event ev);
 void levelMenuDraw(LevelMenu m);
 LevelMenu levelMenuInit(SDL_Surface* screen);
+void resetInputLevelMenu(LevelMenu* m);
 
 #endif // MENU
 

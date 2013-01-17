@@ -14,22 +14,33 @@ void gamePauseDraw(GamePause m) {
 
 void gamePauseEvent(GamePause* m, SDL_Event ev) {
 
-    if (ev.type == SDL_MOUSEMOTION)
+    switch (ev.type)
     {
+    case SDL_KEYDOWN:
+
+        // Sortie de pause
+        if (ev.key.keysym.sym == SDLK_ESCAPE)
+            m->resume = true;
+
+    break;
+
+    case SDL_MOUSEMOTION:
+
         updateButtonState(&m->resumeBtn, ev.motion.x, ev.motion.y);
         updateButtonState(&m->changeLevelBtn, ev.motion.x, ev.motion.y);
         updateButtonState(&m->mainMenuBtn, ev.motion.x, ev.motion.y);
 
-    }
+    break;
 
-    if (ev.type == SDL_MOUSEBUTTONUP)
-    {
+    case SDL_MOUSEBUTTONUP:
+
         if (m->resumeBtn.state == HOVER)
             m->resume = true;
         if (m->changeLevelBtn.state == HOVER)
             m->changeLevel = true;
         if (m->mainMenuBtn.state == HOVER)
             m->mainMenu = true;
+    break;
     }
 
 }
@@ -47,5 +58,15 @@ GamePause gamePauseInit(SDL_Surface* screen) {
     return m;
 }
 
+void resetInputGamePause(GamePause* g) {
 
+    g->changeLevel = false;
+    g->mainMenu = false;
+    g->resume = false;
+
+    g->changeLevelBtn.state = NORMAL;
+    g->mainMenuBtn.state = NORMAL;
+    g->resumeBtn.state = NORMAL;
+
+}
 

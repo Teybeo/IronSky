@@ -41,4 +41,10 @@ Menu menuInit(SDL_Surface* screen) {
     return m;
 }
 
+void resetInputMenu(Menu* m) {
 
+    m->goToLevelMenu = false;
+
+    m->play.state = NORMAL;
+
+}

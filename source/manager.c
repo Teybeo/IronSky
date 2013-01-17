@@ -58,27 +58,25 @@ void manageLogic(Manager* m) {
         if (m->menu.goToLevelMenu == true)
         {
             m->current = LEVELMENU_STATE;
-            m->menu.goToLevelMenu = false;
-        }
+            resetInputMenu(&m->menu);
 
+        }
     break;
 
     case LEVELMENU_STATE:
 
-        if (m->levelMenu.goToGame != -1)
+        if (m->levelMenu.goToGame > 0)
         {
             m->current = GAME_STATE;
             m->game = gameInit(m->levelMenu.goToGame, m->screen, m->tabSprite);
-            m->levelMenu.goToGame = -1;
+            resetInputLevelMenu(&m->levelMenu);
         }
 
         if (m->levelMenu.goToMenu == true)
         {
             m->current = MENU_STATE;
-            m->levelMenu.goToMenu = false;
+            resetInputLevelMenu(&m->levelMenu);
         }
-
-
     break;
 
     case GAME_STATE:
@@ -90,7 +88,7 @@ void manageLogic(Manager* m) {
         {
             m->current = GAMEPAUSE_STATE;
 //            gameDestroy(m->game);
-            m->game.done = false;
+            resetInputGame(&m->game);
         }
 
     break;
@@ -102,23 +100,23 @@ void manageLogic(Manager* m) {
         {
             m->current = GAME_STATE;
 //            gameDestroy(m->game);
-            m->gamePause.resume = false;
+            resetInputGamePause(&m->gamePause);
         }
 
         // Passage à l'état LevelMenu
         if (m->gamePause.changeLevel == true)
         {
             m->current = LEVELMENU_STATE;
+            resetInputGamePause(&m->gamePause);
             gameDestroy(m->game);
-            m->gamePause.changeLevel = false;
         }
 
         // Passage à l'état MainMenu
         if (m->gamePause.mainMenu == true)
         {
             m->current = MENU_STATE;
+            resetInputGamePause(&m->gamePause);
             gameDestroy(m->game);
-            m->gamePause.mainMenu = false;
         }
 
 
@@ -146,6 +144,8 @@ void manageDraw(Manager* m) {
         sprintf(chaine, "Game");
     else if (m->current == LEVELMENU_STATE)
         sprintf(chaine, "LevelMenu");
+    else if (m->current == GAMEPAUSE_STATE)
+        sprintf(chaine, "GamePause");
 
     char temp[10] = "";
     sprintf(temp, " %u ms", updateChrono());

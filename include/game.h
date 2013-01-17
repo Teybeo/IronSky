@@ -28,6 +28,7 @@ void gameEvent(Game* done, SDL_Event ev);
 void gameLogic(Game* g);
 void gameDraw(Game g);
 void gameDestroy(Game g);
+void resetInputGame(Game* g);
 
 #endif // _GAME
 

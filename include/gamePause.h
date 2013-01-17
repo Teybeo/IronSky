@@ -18,6 +18,7 @@ typedef struct GamePause {
 GamePause gamePauseInit(SDL_Surface* screen);
 void gamePauseEvent(GamePause* m, SDL_Event ev);
 void gamePauseDraw(GamePause m);
+void resetInputGamePause(GamePause* g);
 
 #endif // GAMEPAUSE
 

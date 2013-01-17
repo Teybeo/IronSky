@@ -129,3 +129,9 @@ void gameDestroy(Game g) {
     SDL_FreeSurface(g.player.sprite);
 
 }
+
+void resetInputGame(Game* g) {
+
+    g->done = false;
+
+}
