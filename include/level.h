@@ -1,7 +1,6 @@
 #ifndef _LEVEL
 #define _LEVEL
 
-#include "Point.h"
 #include "junk.h"
 #include "SDL_video.h"
 #include "spaceship.h"

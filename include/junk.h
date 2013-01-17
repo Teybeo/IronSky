@@ -2,7 +2,7 @@
 #define _JUNK
 
 #include "SDL.h"
-#include "Point.h"
+#include "vector.h"
 
 #include <stdbool.h>
 

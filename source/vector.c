@@ -22,6 +22,11 @@ float distanceVect(Vector v)
     return sqrt(v.x*v.x + v.y*v.y);
 }
 
+float distance2Points(Point a, Point b)
+{
+    return distanceVect( createVect(a, b) );
+}
+
 void multVec(Vector* a, Vector b) {
 
     a->x *= b.x;

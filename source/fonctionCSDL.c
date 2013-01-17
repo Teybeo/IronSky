@@ -8,9 +8,9 @@ SDL_Surface* memoryImg(char* nom)
     /* Chargement de l'image */
     var = IMG_Load(nom);
 
-    if(var == NULL)
+    if (var == NULL)
     {
-        printf("\nImpossible d'ouvrir : %s",nom);
+        printf("\nErreur a l ouverture de: %s\n", nom);
         exit(EXIT_FAILURE);
     }
 

@@ -35,17 +35,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="include" />
-			<Add directory="$(#sdl.include)" />
-			<Add directory="$(#sdl_image.include)" />
-			<Add directory="$(#sdl_gfx.include)" />
 		</Compiler>
 		<Linker>
 			<Add library="SDL_gfx" />
-			<Add library="SDL" />
-			<Add library="SDL_image" />
-			<Add directory="$(#sdl.lib)" />
-			<Add directory="$(#sdl_image.lib)" />
-			<Add directory="$(#sdl_gfx.lib)" />
 		</Linker>
 		<Unit filename="include/button.h" />
 		<Unit filename="include/fonctionCSDL.h" />
@@ -58,7 +50,6 @@
 		<Unit filename="include/levelMenu.h" />
 		<Unit filename="include/manager.h" />
 		<Unit filename="include/menu.h" />
-		<Unit filename="include/point.h" />
 		<Unit filename="include/spaceship.h" />
 		<Unit filename="include/vector.h" />
 		<Unit filename="source/button.c">
@@ -107,6 +98,11 @@
 			<code_completion />
 			<envvars />
 			<debugger />
+			<lib_finder>
+				<lib name="SDL" />
+				<lib name="SDL_image" />
+				<lib name="SDL_gfx" />
+			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

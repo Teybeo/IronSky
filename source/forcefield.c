@@ -14,7 +14,7 @@ Forcefield createForcefield(int x, int y, int rayon, int intensity, SDL_Surface*
 
 bool isInForcefieldRange(Forcefield field, Point p)
 {
-    return distanceVect(createVect(field.pos, p)) < field.rayon;
+    return distance2Points(field.pos, p) < field.rayon;
 }
 
 Vector calculateForce(Forcefield field, Point pos)
