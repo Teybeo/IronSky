@@ -81,8 +81,8 @@ FILE* openLevelByID(int ID, const char* mode) {
     FILE* fichier = fopen(chemin, mode);
     if (fichier == NULL)
     {
-        printf("Probleme ouverture de %s en mode %s\n", chemin, mode);
-        exit(1);
+        printf("Erreur a l ouverture de: %s en mode %s\n", chemin, mode);
+        exit(EXIT_FAILURE);
     }
 
     return fichier;
