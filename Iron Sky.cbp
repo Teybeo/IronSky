@@ -49,7 +49,6 @@
 		<Unit filename="include/levelMenu.h" />
 		<Unit filename="include/manager.h" />
 		<Unit filename="include/menu.h" />
-		<Unit filename="include/point.h" />
 		<Unit filename="include/spaceship.h" />
 		<Unit filename="include/vector.h" />
 		<Unit filename="source/button.c">

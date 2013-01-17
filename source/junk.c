@@ -32,7 +32,7 @@ void drawJunk(Junk a, SDL_Surface* screen) {
 
 bool canTakeJunk(Junk* junk, Point pos, int rayon)
 {
-    if (junk->taken == false && distanceVect( createVect(junk->pos, pos)) < (rayon + junk->rayon) )
+    if (junk->taken == false && distance2Points(junk->pos, pos) < (rayon + junk->rayon) )
     {
         junk->taken = true;
         return true;

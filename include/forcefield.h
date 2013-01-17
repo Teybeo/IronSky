@@ -1,7 +1,6 @@
 #ifndef _FORCEFIELD
 #define _FORCEFIELD
 
-#include "point.h"
 #include "vector.h"
 
 #include "SDL.h"

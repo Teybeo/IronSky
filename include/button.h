@@ -3,7 +3,6 @@
 
 #include <stdbool.h>
 #include "SDL.h"
-#include "point.h"
 
 typedef enum {
     NORMAL,
