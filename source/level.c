@@ -44,8 +44,8 @@ void generateRandomLevel(int w, int h, int IDLevel)
 {
     // Création d'un niveau aléatoirement
     int nbJunks = rand() % 500;
-    int nbAttractors = rand() % 3;
-    int nbRepulsors = rand() % 3;
+    int nbAttractors = rand() % 7;
+    int nbRepulsors = 7 - nbAttractors;
 
     // créer un nouveau tableau contenant exclusivement les positions des dechets
     Point* tabPosJunk = malloc(nbJunks * sizeof(Point));
