@@ -40,3 +40,14 @@ bool canTakeJunk(Junk* junk, Point pos, int rayon)
 
     return false;
 }
+
+void drawAvailableJunks(Junk* tabJunk, int nb, SDL_Surface* screen)
+{
+    int i;
+    for (i = 0 ; i < nb ; i++)
+    {
+        if (tabJunk[i].taken == false)
+            drawJunk(tabJunk[i], screen);
+    }
+
+}

@@ -41,3 +41,11 @@ void drawForcefield(Forcefield a, SDL_Surface* screen)
     //circleColor(screen, (Sint16)a.pos.x, (Sint16)a.pos.y, a.rayon, 0xffffffff);
 
 }
+
+void drawForcefields(Forcefield* tabField, int nb, SDL_Surface* screen)
+{
+    int i;
+    for (i = 0 ; i < nb ; i++ )
+        drawForcefield(tabField[i], screen);
+
+}

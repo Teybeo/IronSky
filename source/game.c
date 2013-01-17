@@ -42,30 +42,17 @@ void gameLogic(Game* g)
 
 void gameDraw(Game g) {
 
-    int i;
-
     // draw background
     SDL_BlitSurface(g.background, NULL, g.screen, NULL);
 
     // draw all junks
-    for (i=0 ; i < g.nbJunks ; i++)
-    {
-        if (g.tabJunk[i].taken == false)
-            drawJunk(g.tabJunk[i], g.screen);
-
-    }
+    drawAvailableJunks(g.tabJunk, g.nbJunks, g.screen);
 
     // draw all attractors
-    for (i = 0; i < g.nbAttractors; i++)
-    {
-        drawForcefield(g.tabAttractor[i], g.screen);
-    }
+    drawForcefields(g.tabAttractor, g.nbAttractors, g.screen);
 
     // draw all repulsors
-    for (i = 0; i < g.nbRepulsors; i++)
-    {
-        drawForcefield(g.tabRepulsor[i], g.screen);
-    }
+    drawForcefields(g.tabRepulsor, g.nbRepulsors, g.screen);
 
     // draw spaceship
     drawSpaceship(g.player, g.screen);
