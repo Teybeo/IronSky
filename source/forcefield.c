@@ -29,6 +29,19 @@ Vector calculateForce(Forcefield field, Point pos)
     return force;
 }
 
+Forcefield* findFieldNearby(Forcefield* tabField, int nbFields, int x, int y)
+{
+    int i;
+
+    for (i = 0 ; i < nbFields ; i++ )
+    {
+        if (distance2Points((Point){x, y}, tabField[i].pos) < 15)
+            return &tabField[i];
+    }
+
+    return NULL;
+}
+
 void drawForcefield(Forcefield a, SDL_Surface* screen)
 {
     SDL_Rect rect;

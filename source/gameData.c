@@ -1,42 +1,70 @@
-#include "level.h"
+#include "gameData.h"
+
+#include "fonctionCSDL.h"
 
 #include "SDL_video.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
 FILE* openLevelByID(int ID, const char* mode);
 
-void loadLevel(int IDlevel, Game* g, SDL_Surface* junkSprite, SDL_Surface* spaceshipSprite)
+void loadLevel(GameData* g, int IDlevel)
 {
     FILE* fichier = openLevelByID(IDlevel, "rb");
 
     fread(&g->nbJunks, sizeof(int), 1, fichier);
 
-    //Récupération du tableau de Points
-    Point* tabPosJunk = malloc(g->nbJunks * sizeof(Point));
-    fread(tabPosJunk, sizeof(Point), g->nbJunks, fichier);
-
     // Création du tableau de Junks à partir des points récupérés
-    g->tabJunk = malloc(g->nbJunks * sizeof(Junk));
+    g->junks = malloc(g->nbJunks * sizeof(Junk));
+
+    Point posJunk = {};
     int i;
+
     for( i = 0; i < g->nbJunks; i++)
     {
-        g->tabJunk[i] = createJunk(tabPosJunk[i].x, tabPosJunk[i].y, junkSprite);
+        fread(&posJunk, sizeof(Point), 1, fichier);
+        g->junks[i] = createJunk(posJunk.x, posJunk.y, g->sprites[JUNK_A + rand() % 2]);
     }
 
-    // Destruction du tableau de points
-    free(tabPosJunk);
-
-    Point depart = {};
-    fread(&depart, sizeof(Point), 1, fichier);
-
-    g->player = createSpaceShip(depart.x, depart.y, spaceshipSprite);
+    fread(&g->spawnPos, sizeof(Point), 1, fichier);
+    g->player = createSpaceShip(g->spawnPos.x, g->spawnPos.y, g->sprites[SHIP]);
 
     fread(&g->nbAttractors, sizeof(int), 1, fichier);
-
     fread(&g->nbRepulsors, sizeof(int), 1, fichier);
 
+    g->nbCurrentAtt = 0;
+    g->nbCurrentRep = 0;
+
+    g->attractors = malloc(sizeof(Forcefield) * g->nbAttractors);
+    g->repulsors = malloc(sizeof(Forcefield) * g->nbRepulsors);
+
     fclose(fichier);
+
+}
+
+// On remet en visible tous les junks et on replace le vaisseau
+void prepareGame(GameData* g) {
+
+    int i;
+    for (i = 0 ; i < g->nbJunks ; i++ )
+        setTakenJunk(&g->junks[i], false);
+
+    SDL_FreeSurface(g->player.sprite);
+    g->player = createSpaceShip(g->spawnPos.x, g->spawnPos.y, g->sprites[SHIP]);
+
+}
+
+void loadGameSprites(GameData* g) {
+
+    g->sprites = malloc( sizeof(SDL_Surface*) * NB_SPRITES );
+
+    g->sprites[SHIP] = memoryImg("image/spaceshipE.png");
+    g->sprites[JUNK_A] = memoryImg("image/junkA.png");
+    g->sprites[JUNK_B] = memoryImg("image/junkC.png");
+    g->sprites[BACKGROUND] = memoryImg("image/background.png");
+    g->sprites[ATTRACTOR] = memoryImg("image/itemA.png");
+    g->sprites[REPULSOR] = memoryImg("image/itemR.png");
 
 }
 
@@ -69,6 +97,8 @@ void generateRandomLevel(int w, int h, int IDLevel)
     fwrite(&nbAttractors, sizeof(int), 1, fichier);
 
     fwrite(&nbRepulsors, sizeof(int), 1, fichier);
+
+    free(tabPosJunk);
 
     fclose(fichier);
 }

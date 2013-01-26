@@ -39,19 +39,23 @@
 		<Linker>
 			<Add library="SDL_gfx" />
 		</Linker>
+		<Unit filename="include/app.h" />
 		<Unit filename="include/button.h" />
 		<Unit filename="include/fonctionCSDL.h" />
 		<Unit filename="include/forcefield.h" />
-		<Unit filename="include/game.h" />
-		<Unit filename="include/gameDeployment.h" />
-		<Unit filename="include/gamePause.h" />
+		<Unit filename="include/gameData.h" />
 		<Unit filename="include/junk.h" />
-		<Unit filename="include/level.h" />
-		<Unit filename="include/levelMenu.h" />
-		<Unit filename="include/manager.h" />
-		<Unit filename="include/menu.h" />
 		<Unit filename="include/spaceship.h" />
+		<Unit filename="include/state.h" />
+		<Unit filename="include/stateDeployment.h" />
+		<Unit filename="include/stateLevelMenu.h" />
+		<Unit filename="include/stateMenu.h" />
+		<Unit filename="include/statePause.h" />
+		<Unit filename="include/statePlay.h" />
 		<Unit filename="include/vector.h" />
+		<Unit filename="source/app.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="source/button.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -61,34 +65,34 @@
 		<Unit filename="source/forcefield.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="source/game.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="source/gameDeployment.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="source/gamePause.c">
+		<Unit filename="source/gameData.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/junk.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="source/level.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="source/levelMenu.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="source/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="source/manager.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="source/menu.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="source/spaceship.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/state.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/stateDeployment.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/stateLevelMenu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/stateMenu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/statePause.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="source/statePlay.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/vector.c">
@@ -103,6 +107,15 @@
 				<lib name="SDL_image" />
 				<lib name="SDL_gfx" />
 			</lib_finder>
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build extract_all="1" />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot class_diagrams="1" />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -1,14 +1,26 @@
-#include "manager.h"
+#include "app.h"
+
+#include <stdlib.h>
 
 int main() {
 
-    Manager m = {};
+    App* IronSky = NULL;
 
-    if (managerInit(&m) == false)
+    if (App_New(&IronSky) == false)
         return EXIT_FAILURE;
 
-    runManager(m);
+    App_Run(IronSky);
 
     return EXIT_SUCCESS;
 
 }
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,4 @@
 #include "spaceship.h"
-#include "fonctionCSDL.h"
 #include "SDL_rotozoom.h"
 #include "SDL_gfxPrimitives.h"
 #include <math.h>
@@ -100,6 +99,7 @@ void addForce(SpaceShip* spaceshipA, Vector force)
 
 void debugSpaceship(SpaceShip a) {
 
+    printf("Pos x %f   y %f\n", a.pos.x, a.pos.y);
     printf("Vit x %f   y %f\n", a.vitesse.x, a.vitesse.y);
 
 }

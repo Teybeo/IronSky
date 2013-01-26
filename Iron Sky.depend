@@ -1,31 +1,33 @@
 # depslib dependency file v1.0
-1356286105 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\app.c
-	"game.h"
-	"fonctionCSDL.h"
-	"SDL.h"
-	<stdbool.h>
-	<stdlib.h>
+1359212425 source:c:\users\thibault\prog\esgi\ironsky\source\app.c
+	"app.h"
+	"state.h"
+	"stateMenu.h"
+	"stateLevelMenu.h"
+	"statePlay.h"
+	"stateDeployment.h"
+	"statePause.h"
+	"gameData.h"
 	<time.h>
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
 
-1355762552 c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\include\game.h
+1359211972 c:\users\thibault\prog\esgi\ironsky\include\app.h
+	<stdbool.h>
 
-1356285535 c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\include\fonctioncsdl.h
-
-1356283599 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl.h
-	"SDL_stdinc.h"
-	"SDL_audio.h"
-	"SDL_cdrom.h"
-	"SDL_cpuinfo.h"
-	"SDL_endian.h"
-	"SDL_error.h"
+1359213278 c:\users\thibault\prog\esgi\ironsky\include\state.h
 	"SDL_events.h"
-	"SDL_loadso.h"
-	"SDL_mutex.h"
-	"SDL_rwops.h"
-	"SDL_thread.h"
-	"SDL_timer.h"
 	"SDL_video.h"
-	"SDL_version.h"
+
+1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
 	"begin_code.h"
 	"close_code.h"
 
@@ -74,66 +76,8 @@
 
 1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\close_code.h
 
-1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_audio.h
-	"SDL_stdinc.h"
-	"SDL_error.h"
-	"SDL_endian.h"
-	"SDL_mutex.h"
-	"SDL_thread.h"
-	"SDL_rwops.h"
-	"begin_code.h"
-	"close_code.h"
-
 1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_error.h
 	"SDL_stdinc.h"
-	"begin_code.h"
-	"close_code.h"
-
-1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_endian.h
-	"SDL_stdinc.h"
-	<endian.h>
-	"begin_code.h"
-	"close_code.h"
-
-1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_mutex.h
-	"SDL_stdinc.h"
-	"SDL_error.h"
-	"begin_code.h"
-	"close_code.h"
-
-1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_thread.h
-	"SDL_stdinc.h"
-	"SDL_error.h"
-	"SDL_mutex.h"
-	"begin_code.h"
-	<process.h>
-	"close_code.h"
-
-1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_rwops.h
-	"SDL_stdinc.h"
-	"SDL_error.h"
-	"begin_code.h"
-	"close_code.h"
-
-1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_cdrom.h
-	"SDL_stdinc.h"
-	"SDL_error.h"
-	"begin_code.h"
-	"close_code.h"
-
-1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_cpuinfo.h
-	"SDL_stdinc.h"
-	"begin_code.h"
-	"close_code.h"
-
-1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_events.h
-	"SDL_stdinc.h"
-	"SDL_error.h"
-	"SDL_active.h"
-	"SDL_keyboard.h"
-	"SDL_mouse.h"
-	"SDL_joystick.h"
-	"SDL_quit.h"
 	"begin_code.h"
 	"close_code.h"
 
@@ -166,6 +110,12 @@
 	"begin_code.h"
 	"close_code.h"
 
+1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
 1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
@@ -175,6 +125,70 @@
 1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
+
+1359213303 c:\users\thibault\prog\esgi\ironsky\include\statemenu.h
+	"state.h"
+	"button.h"
+	"SDL_video.h"
+
+1356283599 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl.h
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
 
 1325738640 c:\users\thibault\prog\librairies\sdl-1.2.15\include\sdl\sdl_loadso.h
 	"SDL_stdinc.h"
@@ -193,18 +207,58 @@
 	"begin_code.h"
 	"close_code.h"
 
-1356085183 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\attractor.c
+1359212095 c:\users\thibault\prog\esgi\ironsky\include\button.h
+	"SDL_video.h"
+	<stdbool.h>
 
-1356284797 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\champforce.c
-	"champForce.h"
-
-1356285339 c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\include\champforce.h
-	"point.h"
+1359213351 c:\users\thibault\prog\esgi\ironsky\include\statelevelmenu.h
+	"state.h"
+	"button.h"
 	"SDL.h"
 
-1356287734 c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\include\point.h
+1359213510 c:\users\thibault\prog\esgi\ironsky\include\stateplay.h
+	"state.h"
+	"gameData.h"
+	"SDL_video.h"
 
-1356286520 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\fonctioncsdl.c
+1359206336 c:\users\thibault\prog\esgi\ironsky\include\gamedata.h
+	"vector.h"
+	"forcefield.h"
+	"junk.h"
+	"spaceship.h"
+	"SDL_video.h"
+
+1358458114 c:\users\thibault\prog\esgi\ironsky\include\vector.h
+
+1359212144 c:\users\thibault\prog\esgi\ironsky\include\forcefield.h
+	"vector.h"
+	"SDL_video.h"
+	<stdbool.h>
+
+1359148674 c:\users\thibault\prog\esgi\ironsky\include\junk.h
+	"SDL.h"
+	"vector.h"
+	<stdbool.h>
+
+1357863551 c:\users\thibault\prog\esgi\ironsky\include\spaceship.h
+	"vector.h"
+	"SDL.h"
+
+1359233043 c:\users\thibault\prog\esgi\ironsky\include\statedeployment.h
+	"state.h"
+	"gameData.h"
+	"forcefield.h"
+	"button.h"
+	"SDL.h"
+
+1359210655 c:\users\thibault\prog\esgi\ironsky\include\statepause.h
+	"state.h"
+	"button.h"
+
+1359212077 source:c:\users\thibault\prog\esgi\ironsky\source\button.c
+	"button.h"
+
+1358458114 source:c:\users\thibault\prog\esgi\ironsky\source\fonctioncsdl.c
 	<SDL.h>
 	"SDL_image.h"
 
@@ -214,216 +268,71 @@
 	"begin_code.h"
 	"close_code.h"
 
-1356279859 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\game.c
-	"spaceship.h"
-	"junk.h"
-	"level.h"
+1359212133 source:c:\users\thibault\prog\esgi\ironsky\source\forcefield.c
+	"forcefield.h"
+
+1359206341 source:c:\users\thibault\prog\esgi\ironsky\source\gamedata.c
+	"gameData.h"
 	"fonctionCSDL.h"
-	"point.h"
-	"champForce.h"
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_rotozoom.h"
-	<stdlib.h>
-	<stdbool.h>
-	<time.h>
-
-1356287771 c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\include\spaceship.h
-	"vecteur.h"
-	"SDL.h"
-
-1356287728 c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\include\vecteur.h
-	"point.h"
-
-1356287553 c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\include\junk.h
-	"SDL.h"
-	"Point.h"
-	<stdbool.h>
-
-1356287704 c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\include\level.h
-	"Point.h"
-	"junk.h"
 	"SDL_video.h"
-	"spaceship.h"
+	<stdio.h>
+	<stdlib.h>
 
-1336970606 c:\users\thibault\prog\librairies\sdl_gfx-2.0.24\sdl_rotozoom.h
-	<math.h>
-	"SDL.h"
+1356285535 c:\users\thibault\prog\esgi\ironsky\include\fonctioncsdl.h
 
-1356092589 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\junk.c
+1359148674 source:c:\users\thibault\prog\esgi\ironsky\source\junk.c
 	"junk.h"
 	"SDL.h"
-	"vecteur.h"
+	"vector.h"
 	"SDL_gfxPrimitives.h"
 
 1336970606 c:\users\thibault\prog\librairies\sdl_gfx-2.0.24\sdl_gfxprimitives.h
 	<math.h>
 	"SDL.h"
 
-1356106009 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\level.c
-	"level.h"
-	"junk.h"
-	"SDL_video.h"
-	<stdio.h>
+1359148674 source:c:\users\thibault\prog\esgi\ironsky\source\main.c
+	"app.h"
 	<stdlib.h>
 
-1356105614 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\spaceship.c
+1359148674 source:c:\users\thibault\prog\esgi\ironsky\source\spaceship.c
 	"spaceship.h"
-	"fonctionCSDL.h"
 	"SDL_rotozoom.h"
 	"SDL_gfxPrimitives.h"
 	<math.h>
 
-1356087737 source:c:\users\thibault\prog\projets ecoles\projet esgi\les eboueurs de l espace\source\vecteur.c
-	"vecteur.h"
+1336970606 c:\users\thibault\prog\librairies\sdl_gfx-2.0.24\sdl_rotozoom.h
 	<math.h>
-
-1358107280 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\app.c
-	"manager.h"
-	<stdbool.h>
-
-1358172777 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\game.h
-	"forcefield.h"
-	"level.h"
-	<stdbool.h>
 	"SDL.h"
 
-1356285535 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\fonctioncsdl.h
+1359213080 source:c:\users\thibault\prog\esgi\ironsky\source\state.c
+	"state.h"
 
-1356085183 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\attractor.c
+1359211384 source:c:\users\thibault\prog\esgi\ironsky\source\statedeployment.c
+	"stateDeployment.h"
+	"app.h"
 
-1357847089 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\champforce.c
-	"champForce.h"
+1359210598 source:c:\users\thibault\prog\esgi\ironsky\source\statelevelmenu.c
+	"stateLevelMenu.h"
+	"app.h"
 
-1356285339 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\champforce.h
-	"point.h"
-	"SDL.h"
+1359210983 source:c:\users\thibault\prog\esgi\ironsky\source\statemenu.c
+	"stateMenu.h"
+	"app.h"
 
-1356287734 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\point.h
+1359211165 source:c:\users\thibault\prog\esgi\ironsky\source\statepause.c
+	"statePause.h"
+	"statePlay.h"
+	"app.h"
 
-1356286520 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\fonctioncsdl.c
-	<SDL.h>
-	"SDL_image.h"
-
-1358112680 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\junk.c
-	"junk.h"
-	"SDL.h"
+1359213476 source:c:\users\thibault\prog\esgi\ironsky\source\stateplay.c
+	"statePlay.h"
+	"app.h"
 	"vector.h"
-	"SDL_gfxPrimitives.h"
-
-1357863974 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\junk.h
-	"SDL.h"
-	"Point.h"
-	<stdbool.h>
-
-1356287728 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\vecteur.h
-	"point.h"
-
-1358172777 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\level.c
-	"level.h"
+	"forcefield.h"
 	"junk.h"
-	"SDL_video.h"
-	<stdio.h>
-	<stdlib.h>
-
-1358172777 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\level.h
-	"Point.h"
-	"junk.h"
-	"SDL_video.h"
 	"spaceship.h"
 
-1357863551 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\spaceship.h
-	"vector.h"
-	"SDL.h"
-
-1358172777 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\spaceship.c
-	"spaceship.h"
-	"fonctionCSDL.h"
-	"SDL_rotozoom.h"
-	"SDL_gfxPrimitives.h"
-	<math.h>
-
-1356087737 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\vecteur.c
-	"vecteur.h"
-	<math.h>
-
-1358172777 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\game.c
-	"game.h"
-	"spaceship.h"
-	"junk.h"
-	"level.h"
-	"point.h"
-	"forcefield.h"
-	"SDL.h"
-	<stdlib.h>
-	<stdbool.h>
-	<time.h>
-
-1357858867 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\vector.h
-	"point.h"
-
-1357855022 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\vector.c
+1358458114 source:c:\users\thibault\prog\esgi\ironsky\source\vector.c
 	"vector.h"
 	<math.h>
-
-1357863689 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\forcefield.c
-	"forcefield.h"
-
-1357864127 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\forcefield.h
-	"point.h"
-	"vector.h"
-	"SDL.h"
-	<stdbool.h>
-
-1358095656 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\chrono.c
-
-1357918668 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\chrono.h
-
-1358180700 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\manager.c
-	"manager.h"
-	"fonctionCSDL.h"
-	<memory.h>
-	<time.h>
-
-1358172777 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\menu.c
-	"menu.h"
-
-1358172777 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\menu.h
-	"SDL.h"
-	<stdbool.h>
-	"button.h"
-
-1358180968 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\manager.h
-	"menu.h"
-	"game.h"
-	"levelMenu.h"
-	"gamePause.h"
-
-1358172777 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\button.h
-	<stdbool.h>
-	"SDL.h"
-	"point.h"
-
-1358172777 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\button.c
-	"button.h"
-
-1358174075 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\main.c
-	"manager.h"
-
-1358172777 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\levelmenu.c
-	"levelMenu.h"
-
-1358172777 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\levelmenu.h
-	"SDL.h"
-	<stdbool.h>
-	"button.h"
-
-1358180553 source:c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\source\gamepause.c
-	"gamePause.h"
-	"SDL.h"
-	<stdbool.h>
-	"button.h"
-
-1358180653 c:\users\thibault\prog\projets ecoles\projet esgi\iron sky\include\gamepause.h
-	"button.h"
 

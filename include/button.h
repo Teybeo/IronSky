@@ -1,8 +1,9 @@
 #ifndef _BUTTON_GUARD
 #define _BUTTON_GUARD
 
+#include "SDL_video.h"
+
 #include <stdbool.h>
-#include "SDL.h"
 
 typedef enum {
     NORMAL,

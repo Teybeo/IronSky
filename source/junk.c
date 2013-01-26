@@ -30,15 +30,19 @@ void drawJunk(Junk a, SDL_Surface* screen) {
 //    circleColor(screen, a.pos.x, a.pos.y, a.rayon, 0xffff00ff);
 }
 
-bool canTakeJunk(Junk* junk, Point pos, int rayon)
+bool canTakeJunk(Junk junk, Point pos, int rayon)
 {
-    if (junk->taken == false && distance2Points(junk->pos, pos) < (rayon + junk->rayon) )
+    if (junk.taken == false && distance2Points(junk.pos, pos) < (rayon + junk.rayon) )
     {
-        junk->taken = true;
         return true;
     }
 
     return false;
+}
+
+void setTakenJunk(Junk* junk, bool taken) {
+
+    junk->taken = taken;
 }
 
 void drawAvailableJunks(Junk* tabJunk, int nb, SDL_Surface* screen)
