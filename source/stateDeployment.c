@@ -83,7 +83,7 @@ void Deployment_Event(State* state, SDL_Event ev) {
                     puts("AjoutAtt !");
                 }
 
-                // On déploie un nouvel attractor
+                // On déploie un nouveau repulsor
                 if (isInBox(deployment->repuls.rect, ev.button.x, ev.button.y) == true && deployment->gameData->nbCurrentRep < deployment->gameData->nbRepulsors)
                 {
                     deployment->gameData->repulsors[deployment->gameData->nbCurrentRep] = createForcefield(ev.button.x, ev.button.y, 100, 1, deployment->gameData->sprites[REPULSOR]);

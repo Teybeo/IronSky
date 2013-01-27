@@ -7,15 +7,15 @@
 typedef struct SpaceShip SpaceShip;
 struct SpaceShip
 {
-    Vector totalForces;          // total des forces qui s'exerce sur le vaisseau à chaque cycle
-    Vector vitesse;              // vitesse du vaisseau, calculée à partir du total des forces
+    Vector totalForces;          // somme des forces qui s'exerce sur le vaisseau à chaque cycle
+    Vector vitesse;              // vitesse du vaisseau, calculée à partir de la somme des forces
     Point pos;                   // position du vaisseau, modifiée par la vitesse
     SDL_Surface* spriteOriginal; // sprite de référence du vaisseau
     SDL_Surface* sprite;         // sprite orienté du vaisseau
     int rayon;                   // rayon du cercle de la hitbox
 };
 
-SpaceShip createSpaceShip(int x0,int y0, SDL_Surface* sprite);
+SpaceShip createSpaceShip(Point pos, SDL_Surface* sprite);
 void resolveWallCollision(SpaceShip* a, int w, int h);
 void applyForces(SpaceShip* spaceshipA);
 void addForce(SpaceShip* spaceshipA, Vector force);

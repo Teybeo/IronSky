@@ -24,11 +24,11 @@ void loadLevel(GameData* g, int IDlevel)
     for( i = 0; i < g->nbJunks; i++)
     {
         fread(&posJunk, sizeof(Point), 1, fichier);
-        g->junks[i] = createJunk(posJunk.x, posJunk.y, g->sprites[JUNK_A + rand() % 2]);
+        g->junks[i] = createJunk(posJunk, g->sprites[JUNK_A + rand() % 2]);
     }
 
     fread(&g->spawnPos, sizeof(Point), 1, fichier);
-    g->player = createSpaceShip(g->spawnPos.x, g->spawnPos.y, g->sprites[SHIP]);
+    g->player = createSpaceShip(g->spawnPos, g->sprites[SHIP]);
 
     fread(&g->nbAttractors, sizeof(int), 1, fichier);
     fread(&g->nbRepulsors, sizeof(int), 1, fichier);
@@ -51,7 +51,7 @@ void prepareGame(GameData* g) {
         setTakenJunk(&g->junks[i], false);
 
     SDL_FreeSurface(g->player.sprite);
-    g->player = createSpaceShip(g->spawnPos.x, g->spawnPos.y, g->sprites[SHIP]);
+    g->player = createSpaceShip(g->spawnPos, g->sprites[SHIP]);
 
 }
 

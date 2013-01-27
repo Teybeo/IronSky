@@ -4,11 +4,11 @@
 #include "vector.h"
 #include "SDL_gfxPrimitives.h"
 
-Junk createJunk(int x, int y, SDL_Surface* sprite) {
+Junk createJunk(Point pos, SDL_Surface* sprite) {
 
     Junk a = {};
-    a.pos.x = x + sprite->w/2.;
-    a.pos.y = y + sprite->h/2.;
+    a.pos.x = pos.x + sprite->w/2.;
+    a.pos.y = pos.y + sprite->h/2.;
     a.taken = false;
     a.rayon = 13;
     a.sprite = sprite;

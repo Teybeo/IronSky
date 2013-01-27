@@ -3,15 +3,14 @@
 #include "SDL_gfxPrimitives.h"
 #include <math.h>
 
-SpaceShip createSpaceShip(int x0, int y0, SDL_Surface* sprite)
+SpaceShip createSpaceShip(Point pos, SDL_Surface* sprite)
 {
     SpaceShip spaceshipA;
     Vector vecteurNull;
     vecteurNull.x = 0;
     vecteurNull.y = 0;
     spaceshipA.rayon = 40 ; // 55
-    spaceshipA.pos.x = x0;
-    spaceshipA.pos.y = y0;
+    spaceshipA.pos = pos;
     spaceshipA.vitesse = vecteurNull;
     spaceshipA.totalForces = vecteurNull;
     spaceshipA.spriteOriginal = sprite;
