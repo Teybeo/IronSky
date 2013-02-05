@@ -2,9 +2,9 @@
 #define _GAMEDATA
 
 #include "vector.h"
-#include "forcefield.h"
+#include "field.h"
 #include "junk.h"
-#include "spaceship.h"
+#include "ship.h"
 
 #include "SDL_video.h"
 

@@ -3,9 +3,9 @@
 #include "app.h"
 
 #include "vector.h"
-#include "forcefield.h"
+#include "field.h"
 #include "junk.h"
-#include "spaceship.h"
+#include "ship.h"
 
 void Play_Logic(State* state)
 {

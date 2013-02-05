@@ -3,7 +3,7 @@
 
 #include "state.h"
 #include "gameData.h"
-#include "forcefield.h"
+#include "field.h"
 #include "button.h"
 
 #include "SDL.h"

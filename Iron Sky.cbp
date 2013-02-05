@@ -41,11 +41,11 @@
 		</Linker>
 		<Unit filename="include/app.h" />
 		<Unit filename="include/button.h" />
+		<Unit filename="include/field.h" />
 		<Unit filename="include/fonctionCSDL.h" />
-		<Unit filename="include/forcefield.h" />
 		<Unit filename="include/gameData.h" />
 		<Unit filename="include/junk.h" />
-		<Unit filename="include/spaceship.h" />
+		<Unit filename="include/ship.h" />
 		<Unit filename="include/state.h" />
 		<Unit filename="include/stateDeployment.h" />
 		<Unit filename="include/stateLevelMenu.h" />
@@ -59,10 +59,10 @@
 		<Unit filename="source/button.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="source/fonctionCSDL.c">
+		<Unit filename="source/field.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="source/forcefield.c">
+		<Unit filename="source/fonctionCSDL.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/gameData.c">
@@ -74,7 +74,7 @@
 		<Unit filename="source/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="source/spaceship.c">
+		<Unit filename="source/ship.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="source/state.c">

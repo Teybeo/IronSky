@@ -1,4 +1,4 @@
-#include "spaceship.h"
+#include "ship.h"
 #include "SDL_rotozoom.h"
 #include "SDL_gfxPrimitives.h"
 

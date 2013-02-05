@@ -1,4 +1,4 @@
-#include "forcefield.h"
+#include "field.h"
 
 Field Field_Create(int x, int y, int rayon, int intensity, SDL_Surface* sprite)
 {
