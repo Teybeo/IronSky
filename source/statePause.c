@@ -1,6 +1,5 @@
 #include "statePause.h"
 
-#include "statePlay.h"
 #include "app.h"
 
 void Pause_Draw(State* state) {
@@ -9,9 +8,9 @@ void Pause_Draw(State* state) {
 
     SDL_FillRect(state->screen, NULL, 0x000000);
 
-    drawButton(pause->resumeBtn, state->screen);
-    drawButton(pause->changeLevelBtn, state->screen);
-    drawButton(pause->mainMenuBtn, state->screen);
+    Button_Draw(pause->resumeBtn, state->screen);
+    Button_Draw(pause->changeLevelBtn, state->screen);
+    Button_Draw(pause->mainMenuBtn, state->screen);
 
     SDL_Flip(state->screen);
 
@@ -33,9 +32,9 @@ void Pause_Event(State* state, SDL_Event ev) {
 
     case SDL_MOUSEMOTION:
 
-        updateButtonState(&pause->resumeBtn, ev.motion.x, ev.motion.y);
-        updateButtonState(&pause->changeLevelBtn, ev.motion.x, ev.motion.y);
-        updateButtonState(&pause->mainMenuBtn, ev.motion.x, ev.motion.y);
+        Button_UpdateState(&pause->resumeBtn, ev.motion.x, ev.motion.y);
+        Button_UpdateState(&pause->changeLevelBtn, ev.motion.x, ev.motion.y);
+        Button_UpdateState(&pause->mainMenuBtn, ev.motion.x, ev.motion.y);
 
     break;
 
@@ -46,12 +45,12 @@ void Pause_Event(State* state, SDL_Event ev) {
 
         if (pause->changeLevelBtn.state == HOVER)
         {
-            game_Destroy(*(Play*)getPlayState(state->appRef));
+            freeGame(*pause->gameData);
             setCurrentState(state->appRef, getLevelMenuState(state->appRef));
         }
         if (pause->mainMenuBtn.state == HOVER)
         {
-            game_Destroy(*(Play*)getPlayState(state->appRef));
+            freeGame(*pause->gameData);
             setCurrentState(state->appRef, getMenuState(state->appRef));
         }
 
@@ -64,15 +63,16 @@ void Pause_Logic(State* state) {
 
 }
 
-Pause Pause_Create(App* appRef) {
+Pause Pause_Create(App* appRef, GameData* gameData) {
 
     Pause m = {};
 
     m.state = createState(appRef, &Pause_Event, &Pause_Logic, &Pause_Draw, "Pause");
+    m.gameData = gameData;
 
-    m.resumeBtn = createButton(583, 100, 200, 100, 0x5321ff, 0x9921ff);
-    m.changeLevelBtn = createButton(583, 300, 200, 100, 0x5321ff, 0x9921ff);
-    m.mainMenuBtn = createButton(583, 500, 200, 100, 0x5321ff, 0x9921ff);
+    m.resumeBtn = Button_Create(583, 100, 200, 100, 0x5321ff, 0x9921ff);
+    m.changeLevelBtn = Button_Create(583, 300, 200, 100, 0x5321ff, 0x9921ff);
+    m.mainMenuBtn = Button_Create(583, 500, 200, 100, 0x5321ff, 0x9921ff);
 
     return m;
 }

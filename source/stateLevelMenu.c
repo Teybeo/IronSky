@@ -8,11 +8,11 @@ void LevelMenu_Draw(State* state) {
 
     SDL_FillRect(state->screen, NULL, 0x000000);
 
-    drawButton(levMenu->quit, state->screen);
+    Button_Draw(levMenu->quit, state->screen);
 
     int i;
     for (i = 0 ; i < NBLEVELS ; i++ )
-        drawButton(levMenu->level[i], state->screen);
+        Button_Draw(levMenu->level[i], state->screen);
 
     SDL_Flip(state->screen);
 
@@ -26,10 +26,10 @@ void LevelMenu_Event(State* state, SDL_Event ev) {
 
     if (ev.type == SDL_MOUSEMOTION)
     {
-        updateButtonState(&levMenu->quit, ev.motion.x, ev.motion.y );
+        Button_UpdateState(&levMenu->quit, ev.motion.x, ev.motion.y );
 
         for (i = 0 ; i < NBLEVELS ; i++ )
-            updateButtonState(&levMenu->level[i], ev.motion.x, ev.motion.y );
+            Button_UpdateState(&levMenu->level[i], ev.motion.x, ev.motion.y );
     }
 
     if (ev.type == SDL_MOUSEBUTTONUP)
@@ -62,7 +62,7 @@ LevelMenu LevelMenu_Create(App* appRef) {
 
     m.state = createState(appRef, &LevelMenu_Event, &LevelMenu_Logic, &LevelMenu_Draw, "LevelMenu");
 
-    m.quit = createButton(583, 650, 200, 100, 0x145321ff, 0x999921ff);
+    m.quit = Button_Create(583, 650, 200, 100, 0x145321ff, 0x999921ff);
 
     int i;
     int w = m.state.screen->w / 7;
@@ -70,7 +70,7 @@ LevelMenu LevelMenu_Create(App* appRef) {
     {
         int x = w/2 + 240 * (i % (NBLEVELS/2));
         int y = 150 + 240 * ((i/5) % (NBLEVELS/2));
-        m.level[i] = createButton(x, y, w, w, 0x804030, 0x808030);
+        m.level[i] = Button_Create(x, y, w, w, 0x804030, 0x808030);
     }
 
     return m;

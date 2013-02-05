@@ -24,11 +24,11 @@ void loadLevel(GameData* g, int IDlevel)
     for( i = 0; i < g->nbJunks; i++)
     {
         fread(&posJunk, sizeof(Point), 1, fichier);
-        g->junks[i] = createJunk(posJunk, g->sprites[JUNK_A + rand() % 2]);
+        g->junks[i] = Junk_Create(posJunk, g->sprites[JUNK_A + rand() % 2]);
     }
 
     fread(&g->spawnPos, sizeof(Point), 1, fichier);
-    g->player = createSpaceShip(g->spawnPos, g->sprites[SHIP]);
+    g->player = Ship_Create(g->spawnPos, g->sprites[SHIP]);
 
     fread(&g->nbAttractors, sizeof(int), 1, fichier);
     fread(&g->nbRepulsors, sizeof(int), 1, fichier);
@@ -36,8 +36,8 @@ void loadLevel(GameData* g, int IDlevel)
     g->nbCurrentAtt = 0;
     g->nbCurrentRep = 0;
 
-    g->attractors = malloc(sizeof(Forcefield) * g->nbAttractors);
-    g->repulsors = malloc(sizeof(Forcefield) * g->nbRepulsors);
+    g->attractors = malloc(sizeof(Field) * g->nbAttractors);
+    g->repulsors = malloc(sizeof(Field) * g->nbRepulsors);
 
     fclose(fichier);
 
@@ -51,7 +51,23 @@ void prepareGame(GameData* g) {
         setTakenJunk(&g->junks[i], false);
 
     SDL_FreeSurface(g->player.sprite);
-    g->player = createSpaceShip(g->spawnPos, g->sprites[SHIP]);
+    g->player = Ship_Create(g->spawnPos, g->sprites[SHIP]);
+
+}
+
+void freeGame(GameData gameData) {
+
+    if (gameData.attractors != NULL)
+        free(gameData.attractors);
+
+    if (gameData.repulsors != NULL)
+        free(gameData.repulsors);
+
+    if (gameData.junks != NULL)
+        free(gameData.junks);
+
+    if (gameData.player.sprite != NULL && gameData.player.sprite != gameData.player.spriteOriginal)
+        SDL_FreeSurface(gameData.player.sprite);
 
 }
 

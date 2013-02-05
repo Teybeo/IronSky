@@ -22,11 +22,11 @@ enum {
 typedef struct GameData {
 
     SDL_Surface** sprites;
-    SpaceShip player;
+    Ship player;
     Point spawnPos;
     Junk* junks;
-    Forcefield* attractors;
-    Forcefield* repulsors;
+    Field* attractors;
+    Field* repulsors;
     int nbJunks;
     int nbAttractors;
     int nbRepulsors;
@@ -39,6 +39,7 @@ void loadGameSprites(GameData* g);
 void loadLevel(GameData* g, int IDlevel);
 void prepareGame(GameData* g);
 void generateRandomLevel(int w, int h, int IDLevel);
+void freeGame(GameData gameData);
 
 #endif // GAMEDATA
 

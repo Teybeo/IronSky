@@ -4,7 +4,7 @@
 #include "vector.h"
 #include "SDL_gfxPrimitives.h"
 
-Junk createJunk(Point pos, SDL_Surface* sprite) {
+Junk Junk_Create(Point pos, SDL_Surface* sprite) {
 
     Junk a = {};
     a.pos.x = pos.x + sprite->w/2.;
@@ -17,7 +17,7 @@ Junk createJunk(Point pos, SDL_Surface* sprite) {
 
 }
 
-void drawJunk(Junk a, SDL_Surface* screen) {
+void Junk_Draw(Junk a, SDL_Surface* screen) {
 
     SDL_Rect pos;
     pos.x = a.pos.x - a.sprite->w/2;
@@ -45,13 +45,13 @@ void setTakenJunk(Junk* junk, bool taken) {
     junk->taken = taken;
 }
 
-void drawAvailableJunks(Junk* tabJunk, int nb, SDL_Surface* screen)
+void Junk_MultipleDraw(Junk* tabJunk, int nb, SDL_Surface* screen)
 {
     int i;
     for (i = 0 ; i < nb ; i++)
     {
         if (tabJunk[i].taken == false)
-            drawJunk(tabJunk[i], screen);
+            Junk_Draw(tabJunk[i], screen);
     }
 
 }

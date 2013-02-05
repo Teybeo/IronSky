@@ -1,11 +1,11 @@
-#ifndef _SPACESHIP
-#define _SPACESHIP
+#ifndef _SHIP
+#define _SHIP
 
 #include "vector.h"
 #include "SDL.h"
 
-typedef struct SpaceShip SpaceShip;
-struct SpaceShip
+typedef struct Ship Ship;
+struct Ship
 {
     Vector totalForces;          // somme des forces qui s'exerce sur le vaisseau à chaque cycle
     Vector vitesse;              // vitesse du vaisseau, calculée à partir de la somme des forces
@@ -15,13 +15,13 @@ struct SpaceShip
     int rayon;                   // rayon du cercle de la hitbox
 };
 
-SpaceShip createSpaceShip(Point pos, SDL_Surface* sprite);
-void resolveWallCollision(SpaceShip* a, int w, int h);
-void applyForces(SpaceShip* spaceshipA);
-void addForce(SpaceShip* spaceshipA, Vector force);
-void nextpos(SpaceShip* spaceshipA);
-void turnSpaceShip(SpaceShip* a);
-void drawSpaceship(SpaceShip a, SDL_Surface* screen);
-void debugSpaceship(SpaceShip a);
+Ship Ship_Create(Point pos, SDL_Surface* sprite);
+void resolveWallCollision(Ship* a, int w, int h);
+void applyForces(Ship* ship);
+void addForce(Ship* ship, Vector force);
+void nextpos(Ship* ship);
+void Ship_Turn(Ship* a);
+void Ship_Draw(Ship a, SDL_Surface* screen);
+void Ship_Debug(Ship a);
 
-#endif // _SPACESHIP
+#endif // _SHIP

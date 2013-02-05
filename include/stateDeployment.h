@@ -12,8 +12,8 @@ typedef struct Deployment {
 
     State state;
     GameData* gameData;
-    SDL_Surface* background; // image de fond
-    Forcefield* selection;
+    SDL_Surface* background;   // image de fond
+    Field* selection;          // le champ a déplacer à la souris
     Button attrac;             // bouton pour lancer une partie
     Button repuls;             // bouton pour quitter le jeu
 

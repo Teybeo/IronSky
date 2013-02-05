@@ -1,8 +1,8 @@
 #include "forcefield.h"
 
-Forcefield createForcefield(int x, int y, int rayon, int intensity, SDL_Surface* sprite)
+Field Field_Create(int x, int y, int rayon, int intensity, SDL_Surface* sprite)
 {
-    Forcefield a = {};
+    Field a = {};
     a.pos = (Point){x, y};
     a.rayon = rayon;
     a.intensity = intensity;
@@ -12,12 +12,12 @@ Forcefield createForcefield(int x, int y, int rayon, int intensity, SDL_Surface*
 
 }
 
-bool isInForcefieldRange(Forcefield field, Point p)
+bool isInFieldRange(Field field, Point p)
 {
     return distance2Points(field.pos, p) < field.rayon;
 }
 
-Vector calculateForce(Forcefield field, Point pos)
+Vector Field_GetForceAtPoint(Field field, Point pos)
 {
     Vector normale = createVect(field.pos,  pos);
     float longueur = distanceVect(normale);
@@ -29,7 +29,7 @@ Vector calculateForce(Forcefield field, Point pos)
     return force;
 }
 
-Forcefield* findFieldNearby(Forcefield* tabField, int nbFields, int x, int y)
+Field* findFieldNearPoint(Field* tabField, int nbFields, int x, int y)
 {
     int i;
 
@@ -42,7 +42,7 @@ Forcefield* findFieldNearby(Forcefield* tabField, int nbFields, int x, int y)
     return NULL;
 }
 
-void drawForcefield(Forcefield a, SDL_Surface* screen)
+void Field_Draw(Field a, SDL_Surface* screen)
 {
     SDL_Rect rect;
     rect.x = a.pos.x - a.sprite->w/4;
@@ -55,10 +55,10 @@ void drawForcefield(Forcefield a, SDL_Surface* screen)
 
 }
 
-void drawForcefields(Forcefield* tabField, int nb, SDL_Surface* screen)
+void Field_MultipleDraw(Field* tabField, int nb, SDL_Surface* screen)
 {
     int i;
     for (i = 0 ; i < nb ; i++ )
-        drawForcefield(tabField[i], screen);
+        Field_Draw(tabField[i], screen);
 
 }

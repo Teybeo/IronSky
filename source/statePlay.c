@@ -18,9 +18,9 @@ void Play_Logic(State* state)
     // On applique les forces d'attractions au vaisseau
     for (i = 0; i < play->gameData->nbAttractors; i++)
     {
-        if (isInForcefieldRange(play->gameData->attractors[i], play->gameData->player.pos) == true)
+        if (isInFieldRange(play->gameData->attractors[i], play->gameData->player.pos) == true)
         {
-            Vector force = calculateForce(play->gameData->attractors[i], play->gameData->player.pos);
+            Vector force = Field_GetForceAtPoint(play->gameData->attractors[i], play->gameData->player.pos);
             addForce(&play->gameData->player, force);
         }
     }
@@ -28,9 +28,9 @@ void Play_Logic(State* state)
     // On applique les forces de répulsions au vaisseau
     for (i = 0; i < play->gameData->nbRepulsors; i++)
     {
-        if (isInForcefieldRange(play->gameData->repulsors[i], play->gameData->player.pos) == true)
+        if (isInFieldRange(play->gameData->repulsors[i], play->gameData->player.pos) == true)
         {
-            Vector force = calculateForce(play->gameData->repulsors[i], play->gameData->player.pos);
+            Vector force = Field_GetForceAtPoint(play->gameData->repulsors[i], play->gameData->player.pos);
             addForce(&play->gameData->player, force);
         }
     }
@@ -38,7 +38,7 @@ void Play_Logic(State* state)
     // On déplace le vaisseau
     applyForces(&play->gameData->player);
     nextpos(&play->gameData->player);
-    turnSpaceShip(&play->gameData->player);
+    Ship_Turn(&play->gameData->player);
 
     // On comptabilise les junks ramassés
     for (i = 0; i < play->gameData->nbJunks; i++)
@@ -53,7 +53,7 @@ void Play_Logic(State* state)
     // La partie est terminée, on revient au menu des niveaux
     if (play->comptJunk == play->gameData->nbJunks)
     {
-        game_Destroy(*play);
+        freeGame(*play->gameData);
         setCurrentState(state->appRef, getLevelMenuState(state->appRef));
     }
 }
@@ -67,16 +67,16 @@ void Play_Draw(State* state) {
     SDL_BlitSurface(play->background, NULL, state->screen, NULL);
 
     // draw all junks
-    drawAvailableJunks(play->gameData->junks, play->gameData->nbJunks, state->screen);
+    Junk_MultipleDraw(play->gameData->junks, play->gameData->nbJunks, state->screen);
 
     // draw all attractors
-    drawForcefields(play->gameData->attractors, play->gameData->nbAttractors, state->screen);
+    Field_MultipleDraw(play->gameData->attractors, play->gameData->nbAttractors, state->screen);
 
     // draw all repulsors
-    drawForcefields(play->gameData->repulsors, play->gameData->nbRepulsors, state->screen);
+    Field_MultipleDraw(play->gameData->repulsors, play->gameData->nbRepulsors, state->screen);
 
     // draw spaceship
-    drawSpaceship(play->gameData->player, state->screen);
+    Ship_Draw(play->gameData->player, state->screen);
 
     // finally, update the screen :)
     SDL_Flip(state->screen);
@@ -118,20 +118,4 @@ Play Play_Create(App* appRef, GameData* gameData)
 //    addForce(&g.player, (Vector){-0.001, 0});
 
     return g;
-}
-
-void game_Destroy(Play g) {
-
-    if (g.gameData->attractors != NULL)
-        free(g.gameData->attractors);
-
-    if (g.gameData->repulsors != NULL)
-        free(g.gameData->repulsors);
-
-    if (g.gameData->junks != NULL)
-        free(g.gameData->junks);
-
-    if (g.gameData->player.sprite != NULL && g.gameData->player.sprite != g.gameData->player.spriteOriginal)
-        SDL_FreeSurface(g.gameData->player.sprite);
-
 }

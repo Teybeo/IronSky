@@ -15,9 +15,9 @@
 
 typedef struct App {
 
-    SDL_Surface* screen;     // écran
-    State* current;        // état actuel du programme
-    State* precedent;
+    SDL_Surface* screen;    // surface affichée à l'écran
+    State* current;         // état actuel du programme
+    State* precedent;       // état précédent du programme
     Menu menu;
     LevelMenu levelMenu;
     Play play;
@@ -114,7 +114,7 @@ bool App_New(App** app) {
     newApp->levelMenu = LevelMenu_Create(newApp);
     newApp->play = Play_Create(newApp, &newApp->gameData);
     newApp->deployment = Deployment_Create(newApp, &newApp->gameData);
-    newApp->pause = Pause_Create(newApp);
+    newApp->pause = Pause_Create(newApp, &newApp->gameData);
 
     newApp->current = (State*)&newApp->menu;
 

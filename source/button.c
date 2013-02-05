@@ -1,6 +1,6 @@
 #include "button.h"
 
-void updateButtonState(Button *button, int mouseX, int mouseY)
+void Button_UpdateState(Button *button, int mouseX, int mouseY)
 {
     if (isInBox(button->rect, mouseX, mouseY))
         button->state = HOVER;
@@ -14,13 +14,13 @@ bool isInBox(SDL_Rect rect, int x, int y) {
 
 }
 
-void drawButton(Button b, SDL_Surface* screen) {
+void Button_Draw(Button b, SDL_Surface* screen) {
 
     SDL_FillRect(screen, &b.rect, b.color[b.state]);
 
 }
 
-Button createButton(int x, int y, int w, int h, Uint32 colorNormal, Uint32 colorHover) {
+Button Button_Create(int x, int y, int w, int h, Uint32 colorNormal, Uint32 colorHover) {
 
     Button b = {};
 

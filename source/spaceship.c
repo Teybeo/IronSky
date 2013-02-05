@@ -1,41 +1,42 @@
 #include "spaceship.h"
 #include "SDL_rotozoom.h"
 #include "SDL_gfxPrimitives.h"
+
 #include <math.h>
 
-SpaceShip createSpaceShip(Point pos, SDL_Surface* sprite)
+Ship Ship_Create(Point pos, SDL_Surface* sprite)
 {
-    SpaceShip spaceshipA;
+    Ship ship;
     Vector vecteurNull;
     vecteurNull.x = 0;
     vecteurNull.y = 0;
-    spaceshipA.rayon = 40 ; // 55
-    spaceshipA.pos = pos;
-    spaceshipA.vitesse = vecteurNull;
-    spaceshipA.totalForces = vecteurNull;
-    spaceshipA.spriteOriginal = sprite;
-    spaceshipA.sprite = sprite;
+    ship.rayon = 40 ; // 55
+    ship.pos = pos;
+    ship.vitesse = vecteurNull;
+    ship.totalForces = vecteurNull;
+    ship.spriteOriginal = sprite;
+    ship.sprite = sprite;
 
-    return spaceshipA;
+    return ship;
 }
 
-void applyForces(SpaceShip* spaceshipA)
+void applyForces(Ship* ship)
 {
-    spaceshipA->vitesse.x += spaceshipA->totalForces.x * 100;
-    spaceshipA->vitesse.y += spaceshipA->totalForces.y * 100;
+    ship->vitesse.x += ship->totalForces.x * 100;
+    ship->vitesse.y += ship->totalForces.y * 100;
 
-    spaceshipA->totalForces.x = 0;
-    spaceshipA->totalForces.y = 0;
+    ship->totalForces.x = 0;
+    ship->totalForces.y = 0;
 
 }
 
-void nextpos(SpaceShip* spaceshipA)
+void nextpos(Ship* ship)
 {
-    spaceshipA->pos.x += spaceshipA->vitesse.x * 100;
-    spaceshipA->pos.y += spaceshipA->vitesse.y * 100;
+    ship->pos.x += ship->vitesse.x * 100;
+    ship->pos.y += ship->vitesse.y * 100;
 }
 
-void resolveWallCollision(SpaceShip* a, int w, int h)
+void resolveWallCollision(Ship* a, int w, int h)
 {
     if (a->pos.x - a->rayon < 0) // Gauche
     {
@@ -59,7 +60,7 @@ void resolveWallCollision(SpaceShip* a, int w, int h)
     }
 }
 
-void turnSpaceShip(SpaceShip* a) {
+void Ship_Turn(Ship* a) {
 
     float angle = atan2(-a->vitesse.y, a->vitesse.x) * 180/M_PI;
 
@@ -72,7 +73,7 @@ void turnSpaceShip(SpaceShip* a) {
 
 }
 
-void drawSpaceship(SpaceShip a, SDL_Surface* screen) {
+void Ship_Draw(Ship a, SDL_Surface* screen) {
 
     SDL_Rect rect;
     rect.x = a.pos.x - a.sprite->w/2;
@@ -91,12 +92,12 @@ void drawSpaceship(SpaceShip a, SDL_Surface* screen) {
 
 }
 
-void addForce(SpaceShip* spaceshipA, Vector force)
+void addForce(Ship* ship, Vector force)
 {
-    addVectors(&spaceshipA->totalForces, force);
+    addVectors(&ship->totalForces, force);
 }
 
-void debugSpaceship(SpaceShip a) {
+void Ship_Debug(Ship a) {
 
     printf("Pos x %f   y %f\n", a.pos.x, a.pos.y);
     printf("Vit x %f   y %f\n", a.vitesse.x, a.vitesse.y);

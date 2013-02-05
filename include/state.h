@@ -8,7 +8,7 @@ typedef struct App App;
 
 typedef struct State {
 
-    App* appRef;
+    App* appRef; // pointeur vers l'application
 
     void (*event)(struct State*, SDL_Event);
     void (*logic)(struct State*);

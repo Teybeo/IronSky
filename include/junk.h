@@ -15,9 +15,9 @@ typedef struct Junk
 
 } Junk;
 
-Junk createJunk(Point pos, SDL_Surface* sprite);
-void drawJunk(Junk a, SDL_Surface* screen);
-void drawAvailableJunks(Junk* tabJunk, int nb, SDL_Surface* screen);
+Junk Junk_Create(Point pos, SDL_Surface* sprite);
+void Junk_Draw(Junk a, SDL_Surface* screen);
+void Junk_MultipleDraw(Junk* tabJunk, int nb, SDL_Surface* screen);
 bool canTakeJunk(Junk junk, Point pos, int rayon);
 void setTakenJunk(Junk* junk, bool taken);
 
