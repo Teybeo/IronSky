@@ -54,6 +54,7 @@ void Play_Logic(State* state)
     if (play->comptJunk == play->gameData->nbJunks)
     {
         freeGame(*play->gameData);
+        play->comptJunk = 0;
         setCurrentState(state->appRef, getLevelMenuState(state->appRef));
     }
 }
